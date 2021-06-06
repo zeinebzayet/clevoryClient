@@ -1,0 +1,143 @@
+<app-client-ese></app-client-ese>
+
+<section class="page-title-section overlay" style="background-image: url('../../assets/images/backgrounds/page-title.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <ul class="list-inline custom-breadcrumb">
+            <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Mes Voucher Formation</a></li>
+            <li class="list-inline-item text-white h3 font-secondary "></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container" id="main-container" >
+    
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="wrapper wrapper-content animated fadeInRight">
+    
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="p-xs">
+                      <!--  <div class="pull-left m-r-md">
+                            <i class="fa fa-globe text-navy mid-icon"></i>
+                        </div>-->
+                        <h3>Liste des Vouchers Formation</h3>
+
+                        <div style="float: right;margin-top: -40px;"  class="search">
+                            <input class="search__input"  type="text" name="" 
+                            (ngModelChange)="searchFormation(key.value)" #key="ngModel" ngModel name="key" id="searchName" placeholder="Search"/>
+                            <button class="fa fa-search search__button"></button>
+                          </div>
+                    </div>
+
+                    </div>
+
+                   
+    
+                <div class="ibox-content forum-container">
+    
+                    <div class="forum-title">
+                        <div class="pull-right forum-desc">
+                           
+                        </div>
+                        <h3>Formations</h3>
+                    </div>
+    
+                    <div *ngFor="let v of voucherF " class="forum-item active">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="forum-icon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <a  (click)="onOpenModal(v,'detailsF')"  class="forum-item-title">{{v.demandeVoucher.formation.libelle}}</a>
+                                <div class="forum-sub-title">{{v.demandeVoucher.formation.description}} </div>
+                            </div>
+                            <div class="col-md-2 forum-info">
+                                <span class="views-number">
+                                    {{v.code}}
+                                </span>
+                                <div>
+                                    <small>Code Voucher</small>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-1 forum-info">
+                                <a (click)="onOpenModal(v,'details')"  class="table-link ">
+                                    <span class="fa-stack">
+                                        
+                                        <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+    
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+
+
+                              <div class="modal fade" id="detailsCours" tabindex="-1" role="dialog"
+                                aria-labelledby="addFormateurModalLabel" aria-hidden="true">
+                                <div class="modal-dialog-scrollable modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addFormateurModalLabel">Details Employée</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+          
+
+          
+                                                <div class="form-group">
+                                                   <label for="libelle">Libelle</label>
+                                                   <input type="text" name="libelle" class="form-control" id="libelle" 
+                                                      ngModel="{{details?.demandeVoucher.formation.libelle}}" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="supportcours">Support Cours</label>
+                                                   <input type="text" name="supportcours" #nameInput5 class="form-control" id="supportcours" ngModel="{{details?.demandeVoucher.formation.support_cours}}" disabled>
+                                                </div>
+                        
+                        
+                                                <div class="form-group">
+                                                    <label for="formateur">Formateur</label>
+                                                    <input type="text" name="formateur" class="form-control" id="formateur" ngModel="{{details?.demandeVoucher.formation.formateur.username}}" disabled>
+                                                 </div>
+                        
+                                                 <div class="form-group">
+                                                    <label for="salle">Salle</label>
+                                                    <input type="text" name="salle" class="form-control" id="salle" ngModel="{{details?.demandeVoucher.formation.salle.nom}}" disabled>
+                                                 </div>
+              
+                                                <div class="modal-footer">
+                                                  
+                                                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary ">Cancel</button>
+                        
+                                                </div>
+                                             </form>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                            
+
+
+</section>
+
+                                <!--****************footer**************-->
+<app-footer></app-footer>

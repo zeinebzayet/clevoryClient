@@ -1,0 +1,168 @@
+<header class="fixed-top header"  >
+  <!-- top header -->
+  <div class="top-header py-2 bg-white">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-lg-4 text-center text-lg-left">
+          <a class="text-color mr-3" href="callto:+21670038069"><strong>TEL</strong> +216 70 038 069</a>
+          <ul class="list-inline d-inline"> 
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.facebook.com/ClevoryTraining"><i class="ti-facebook"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.linkedin.com/company/clevory-training/"><i class="ti-linkedin"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.instagram.com/clevorytraining/?hl=fr"><i class="ti-instagram"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.youtube.com/channel/UC6_4zWYrDtp4WrncPEc_JUA"><i class="ti-youtube"></i></a></li>
+
+          </ul>
+        </div>
+        <div class="col-lg-8 text-center text-lg-right"  >
+          <ul class="list-inline">
+            <!--<li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="notice.html">notice</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="research.html">research</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="scholarship.html">SCHOLARSHIP</a></li> -->
+            <li style="font-size:17px;" *ngIf="client.entreprise==null" class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"  data-target="#demandeEntreprise" data-toggle="modal">Rejoindre Entreprise</a></li>
+            <li style="font-size:17px;" *ngIf="client.entreprise!=null" class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"  >{{client.entreprise.nom}}</a></li>
+
+            <li style="font-size:17px;" class="list-inline-item"><i class="fa fa-user" aria-hidden="true">&nbsp;{{nom}} {{prenom}}</i></li>
+            <li style="font-size:17px;" class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"  data-target="#logoutModal" data-toggle="modal"><i class="fas fa-sign-out-alt"></i></a></li>
+            <!--<li class="list-inline-item"> <i class="fa fa-bell" aria-hidden="true"></i></li>-->
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- navbar -->
+  <div class="navigation w-100">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark p-0">
+        <a class="navbar-brand" href="index.html"><img src="../../../assets/images/logo2.png" alt="logo"></a>
+        <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+          aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navigation">
+          <ul class="navbar-nav ml-auto text-center">
+            <li class="nav-item ">
+              <a class="nav-link" routerLink=''>Home</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" routerLink='/examensClientEse'>Examens</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" routerLink='/formationsClientEse'>Formations</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" routerLink='/calendar'>Calender</a>
+              
+            </li>
+            <li  class="nav-item dropdown view"  >
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Mes Demandes
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                <a class="dropdown-item" routerLink='/mesDemandeDevis' >Mes Formations</a>
+                <a class="dropdown-item" routerLink='/inscriptionExam' >Mes Examens</a>
+              </div>
+            </li> 
+
+            <li *ngIf="client.entreprise!=null" class="nav-item dropdown view" > 
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Vouchers
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                <a class="dropdown-item" routerLink='/mesvoucherf' >Formations</a>
+                <a class="dropdown-item" routerLink='/mesVoucherExamen' >Examens</a>
+              </div>
+            </li> 
+
+            <li class="nav-item ">
+              <a class="nav-link" routerLink='/profilClientEse'>Profil</a>
+            </li>
+
+            <li  class="nav-item dropdown view" > 
+              <p  (click)="nbNotif()" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i style="font-size:20px;" class="fa fa-bell" aria-hidden="true"></i>
+                <span *ngIf="this.notification_number!=0" style="font-size: 20px;"  class="notification">{{this.notification_number}}</span>
+            </p>
+              <div class="dropdown-menu dropdown-menu-right pre-scrollable" aria-labelledby="navbarDropdown" >
+                
+
+
+                <div  *ngIf="this.notification_list.length>1">
+                  
+                  <div *ngFor="let not of this.notification_list;let indexOfelement=index;"  >
+                      <p *ngIf="this.notification_list[indexOfelement]" class="dropdown-item" > {{not}} </p>
+                   
+                      </div>
+                  </div>
+                  <p  *ngFor="let n of this.notifications" class="dropdown-item" >{{n.content}} </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+<!-- /header -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+       </button>
+      </div>
+      <div class="modal-body">
+          Are you sure you want to log-off?
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-outline-info">Close</button>
+        <button type="button" data-dismiss="modal" (click)="logout()" class="btn btn-warning">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="demandeEntreprise" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+       </button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm"  autocomplete="off">
+
+          <div class="form-group">
+            <select class="form-control" (change)="onItemChange($event.target.value)"   >
+            <option disabled selected>Select Entreprise</option>
+            <option *ngFor="let e of entreprise"   [value]='e.rcs' > {{e.nom}} </option>
+            </select>
+
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">non</button>
+              <button type="submit" data-dismiss="modal" (click)="adddemande();addNotification()"  [disabled]="addForm.invalid" class="btn btn-primary">Confirmer</button>
+            </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

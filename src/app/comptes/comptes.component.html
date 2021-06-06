@@ -1,0 +1,96 @@
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+		<div class="login-form">
+			<div class="sign-in-htm">
+
+<form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit2()" #f="ngForm" novalidate
+			  >
+				
+				<div class="group form-group">
+					<label for="username" class="label">Username</label>
+					<input id="username" type="text" name="username" class="input form-control"  [(ngModel)]="form.username"
+					required
+					#username="ngModel">
+				</div>
+				<div class="group form-group">
+					<label for="password" class="label">Password</label>
+					<input id="password" type="password" class="input form-control"  name="password" [(ngModel)]="form.password"
+					required
+					#password="ngModel">
+				</div>
+				<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Keep me Signed in</label>
+				</div>
+				<div class="group form-group">
+					<button type="submit" class="button" value="Sign In"> Sign In </button>
+				</div>
+
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<a href="#forgot">Forgot Password?</a>
+				</div>
+			</form>
+			</div>
+			<div class="sign-up-htm">
+        <form
+        *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+        <div class="group form-group">
+					<label for="cin" class="label">CIN</label>
+					<input  type="number" class="form-control input" name="cin"   [(ngModel)]="form.cin"
+          required #cin="ngModel">
+				</div>
+
+				<div class="group form-group">
+					<label for="username" class="label">Username</label>
+					<input type="text" class="form-control input"  name="username"  [(ngModel)]="form.username"
+          required #username="ngModel">
+				</div>
+
+        <div class="group form-group">
+					<label for="prenom" class="label">Prenom</label>
+					<input  type="text" class="form-control input" name="prenom"   [(ngModel)]="form.prenom"
+          required #prenom="ngModel">
+				</div>
+
+        <div class="group form-group">
+					<label for="email" class="label">Email</label>
+					<input  type="text" class="form-control input"  name="email" [(ngModel)]="form.email"
+          required #email="ngModel">
+				</div>
+
+				<div class="group form-group">
+					<label for="password" class="label">Password</label>
+					<input type="password" class="form-control input"  name="password"  [(ngModel)]="form.password"
+          required #password="ngModel" >
+				</div>
+
+        <div class="group form-group">
+					<label for="adresse" class="label">Adresse</label>
+					<input type="text" class="form-control input" name="adresse"   [(ngModel)]="form.adresse"
+          required #adresse="ngModel">
+				</div>
+
+        <div class="group form-group">
+					<label for="tel" class="label">Tel</label>
+					<input  type="number" class="form-control input" name="tel"  [(ngModel)]="form.tel"
+          required #tel="ngModel">
+				</div>
+
+				<div class="group form-group">
+					<button type="submit" class="button" value="Sign Up">Sign Up</button>
+				</div>
+       
+      
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<label for="tab-1">Already Member?</label>
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>

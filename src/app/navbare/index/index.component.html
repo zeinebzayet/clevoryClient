@@ -1,0 +1,239 @@
+<div id="main-container">
+<header class="fixed-top header">
+  <!-- top header -->
+  <div class="top-header py-2 bg-white">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-lg-4 text-center text-lg-left">
+          <a class="text-color mr-3" href="callto:+443003030266"><strong>TEL</strong> +216 70 038 069</a>
+          <ul class="list-inline d-inline"> 
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.facebook.com/ClevoryTraining"><i class="ti-facebook"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.linkedin.com/company/clevory-training/"><i class="ti-linkedin"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.instagram.com/clevorytraining/?hl=fr"><i class="ti-instagram"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.youtube.com/channel/UC6_4zWYrDtp4WrncPEc_JUA"><i class="ti-youtube"></i></a></li>
+
+          </ul>
+        </div>
+        <div class="col-lg-8 text-center text-lg-right">
+          <ul class="list-inline">
+           
+            <li class="list-inline-item"><a (click)="onOpenModal('login')" class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block">login</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"  data-toggle="modal" data-target="#signupModal">register</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- navbar -->
+  <div class="navigation w-100">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark p-0">
+        <a class="navbar-brand" href="index.html"><img src="../../../assets/images/logo2.png" alt="logo"></a>
+        <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+          aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navigation">
+          <ul class="navbar-nav ml-auto text-center">
+            <li class="nav-item ">
+              <a class="nav-link" routerLink=''>Home</a>
+            </li>
+            
+            <li class="nav-item ">
+              <a class="nav-link" routerLink='/examens'>Examens</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" routerLink='/formations'>Formations</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" routerLink='/calendar'>Calender</a>
+            </li>
+          
+            <li class="nav-item ">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+<!-- /header -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
+  <div class="modal-content ">
+    <div class="modal-body">
+      <div class="card px-0 pt-4 ">
+        <h3><strong>Sign Up Your User Account</strong></h3>
+        <p>Fill all form field to go to next step</p>
+        <div class="row">
+          <div class="col-md-12 mx-0">
+            <form id="msform" name="form"  [formGroup]="angForm" novalidate (ngSubmit)="onSubmit()" >
+              <!-- progressbar -->
+              <ul id="progressbar">
+                <li class="active" id="account"><strong>Statut</strong></li>
+                <li id="personal"><strong>Informations</strong></li>
+                <li id="confirm"><strong>Finish</strong></li>
+              </ul> <!-- fieldsets -->
+              <fieldset>
+                <div class="form-card">
+
+                  <h2 class="fs-title">Statut</h2>
+                  <br>
+                  <div>
+                    <input id="role" class="form-control" (change)="onItemChange($event.target.value)"   name="role" value="client"
+                      type="radio" >
+                    <label for="role"> <span></span> Client </label>
+                  </div>
+
+                  <div> <input id="option-two"   (change)="onItemChange($event.target.value)" name="radio"
+                      value="formateur" type="radio" required>
+                    <label for="option-two"> <span></span> Formateur </label>
+                  </div>
+
+                </div>
+                <input  type="button" name="next" class="next action-button" value="Suivant" />
+              </fieldset>
+              <fieldset>
+              
+                <div *ngIf="val==='client'" class="form-card">
+                  <h2 class="fs-title">Informations</h2>
+                  <br>
+
+                  <div class="form-group">
+                    <input class="form-control" formControlName="cin" placeholder="Cin" formControlName="cin">  
+                    <p *ngFor="let validation of account_validation_messages.cin">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('cin').hasError(validation.type) && (angForm.get('cin').dirty || angForm.get('cin').touched)">{{validation.message}}</span></p>
+                       </div>
+
+
+                  <div class="form-group">
+                    <input class="form-control"  placeholder="Username" formControlName="username">  
+                    <p *ngFor="let validation of account_validation_messages.username">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('username').hasError(validation.type) && (angForm.get('username').dirty || angForm.get('username').touched)">{{validation.message}}</span></p>                  </div>
+
+
+                  <div class="form-group">
+                    <input class="form-control"  placeholder="Prénom" formControlName="prenom">  
+                    <p *ngFor="let validation of account_validation_messages.prenom">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('prenom').hasError(validation.type) && (angForm.get('prenom').dirty || angForm.get('prenom').touched)">{{validation.message}}</span></p>                  </div>
+
+                      <div class="form-group" hidden>
+                        <input class="form-control" value=""  placeholder="role" formControlName="role">  
+                       </div>
+
+                  <div class="form-group">
+                    <input class="form-control"  placeholder="Email" formControlName="email">  
+                    <p *ngFor="let validation of account_validation_messages.email">
+                    <span style="color: red;" class="error-message" *ngIf="angForm.get('email').hasError(validation.type) && (angForm.get('email').dirty || angForm.get('email').touched)">{{validation.message}}</span></p>
+                  </div>
+
+
+                  <div class="form-group">
+                    <input class="form-control"  placeholder="Adresse" formControlName="adresse">  
+                    <p *ngFor="let validation of account_validation_messages.adresse">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('adresse').hasError(validation.type) && (angForm.get('adresse').dirty || angForm.get('adresse').touched)">{{validation.message}}</span></p>
+  
+                </div>
+
+                  <div class="form-group">
+                    <input class="form-control"  placeholder="Téléphone" formControlName="tel">  
+                    <p *ngFor="let validation of account_validation_messages.tel">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('tel').hasError(validation.type) && (angForm.get('tel').dirty || angForm.get('tel').touched)">{{validation.message}}</span></p>
+                    </div>
+
+
+                  <div class="form-group">
+                    <input class="form-control"  placeholder="Niveau Scolaire" formControlName="niveau">  
+                    <p *ngFor="let validation of account_validation_messages.niveau">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('niveau').hasError(validation.type) && (angForm.get('niveau').dirty || angForm.get('niveau').touched)">{{validation.message}}</span></p>
+                    </div>
+
+                  <div class="form-group">
+                    <show-hide-password size="sm" btnStyle="primary" [btnOutline]="false">
+                    <input  type="password" class="form-control"  placeholder="Password" formControlName="password">  
+                    <p *ngFor="let validation of account_validation_messages.password">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('password').hasError(validation.type) && (angForm.get('password').dirty || angForm.get('password').touched)">{{validation.message}}</span></p>
+                    </show-hide-password>
+                    </div>
+
+                    <div class="form-group">
+                      <show-hide-password size="sm" btnStyle="primary" [btnOutline]="false">
+                      <input  type="password" class="form-control"  placeholder="Confirmer Password" formControlName="cpassword" >  
+                      <p *ngFor="let validation of account_validation_messages.cpassword">
+                        <span style="color: red;" class="error-message" *ngIf="angForm.get('cpassword').hasError(validation.type) && (angForm.get('cpassword').dirty || angForm.get('cpassword').touched)">{{validation.message}}</span></p>
+                      </show-hide-password>
+                      </div>
+                
+
+           
+ 
+                </div>
+
+
+                <input type="button" name="previous" class="previous action-button-previous" value="Précédant" />
+                <input [disabled]="!angForm.valid"  type="submit" name="next" class="next action-button" value="Suivant" />
+              </fieldset>
+
+              <fieldset>
+                <div class="form-card">
+                  <h2 class="fs-title text-center">Success !</h2> <br><br>
+                  <div class="row justify-content-center">
+                    <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png  " class="fit-image"> </div>
+                  </div> <br><br>
+                  <div class="row justify-content-center">
+                    <div class="col-7 text-center">
+                      <h5>You Have Successfully Signed Up</h5>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="LoginnModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content rounded-0 border-0 p-4">
+      <div class="modal-header border-0">
+        <h3 class="modal-title" id="LoginnModalLabel">Login</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body">
+        <form  #add="ngForm" class="row" autocomplete="off">
+
+          <div class="col-12">
+            <input type="text" class="form-control mb-3" id="username" name="username" placeholder="Login" ngModel
+              required>
+          </div>
+          <div class="col-12">
+            <input type="password" class="form-control mb-3" id="password" name="password" ngModel required
+              placeholder="Password">
+          </div>   
+          <div class="modal-footer ">
+          <div class="col-12">
+            <button [disabled]="add.invalid" type="submit" data-dismiss="modal" (click)="onSubmit2(add)"  class="btn btn-success">Connexion</button>
+          </div>
+        </div>
+        </form> 
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+</div>
+
+

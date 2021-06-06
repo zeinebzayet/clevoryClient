@@ -1,0 +1,87 @@
+<app-client-ese></app-client-ese>
+
+<section class="page-title-section overlay"
+style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <ul class="list-inline custom-breadcrumb">
+        <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Liste des demandes d'examen</a>
+        </li>
+        <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+<!-- /page title -->
+
+<!-- courses -->
+<section class="section">
+<div class="container" id="main-container">
+  <div class="row">
+    <!-- event -->
+
+
+
+    <div class="container">
+      <div class="row">
+          <div class="col-12 col-sm-12 col-md-12">
+              <div class="card">
+                  <div class="card-header">
+                      <h4>Mes Demandes d'inscription aux examens</h4>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: scroll;">
+                    
+                        <table class="table table-striped mb-0">
+                              <thead>
+                                  <tr>
+                                      <th></th>
+                                      <th>Examens</th>
+                                      <th>Date de passage d'examen</th>
+                                      <th>Etat</th>
+                                     
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr  *ngFor="let i of inscriptions">
+                                      <td class="table-img"><img src = "{{this.demandeService.host+'/api/Imgexamens/'+i.examen.id}}" alt="">
+                                      </td>
+                                      <td>
+                                          <h6 class="mb-0 font-13">{{i.examen.libelle}}</h6>
+                                          <p class="m-0 font-12">
+                                              {{i.examen.description}}
+                                          </p>
+                                      </td>
+                                      <td>{{i.date}}</td>
+                                      <td class="text-truncate">
+                                          <div  *ngIf="i.etat==='En Attente'" class="text-info">{{i.etat}}</div>  
+                                          <div  *ngIf="i.etat==='Acceptée'" class="text-success">{{i.etat}}</div>  
+                                          <div  *ngIf="i.etat==='Refusée'" class="text-danger">{{i.etat}}</div>  
+                                      </td>
+                                  </tr>
+                         
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+</section>
+                                <!--****************footer**************-->
+    <app-footer></app-footer>
+

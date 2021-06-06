@@ -1,0 +1,261 @@
+<app-client></app-client>
+<!-- page title -->
+<section class="page-title-section overlay"
+  style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Nos Formations</a>
+          </li>
+          <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+        </ul>
+        <p class="text-lighten">Our courses offer a good compromise between the continuous assessment favoured by some
+          universities and the emphasis placed on final exams by others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- courses -->
+<section class="section">
+  <div class="container" id="main-container">
+    <div class="row">
+      <!-- event -->
+
+
+
+      <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Mes demandes</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr >
+                                        
+                                        <th>Formations</th>
+                                        <th>Date de déroulement</th>
+                                        <th>Date de la demande</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr  *ngFor="let d of demandes">
+                                       
+                                        <td>
+                                            <h6  class="mb-0 font-13">{{d.formation.libelle}}</h6>
+                                           <!--<p class="m-0 font-12">
+                                                Assigned to<span class="col-green font-weight-bold"> Airi Satou</span>
+                                            </p>--> 
+                                        </td>
+                                        <td>{{d.formation.datedeb}} au {{d.formation.datefin}}</td>
+                                        
+                                        <td>
+                                            <div class="badge-outline col-red">{{d.date}}</div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div  *ngIf="d.etat==='En Attente'" class="text-info">{{d.etat}}</div>  
+                                            <div  *ngIf="d.etat==='Acceptée'" class="text-success">{{d.etat}}&nbsp;    <a (click)="onOpenModal(d,'details')"
+                                              class="text-primary"
+                                              data-toggle="tooltip" title=""
+                                              data-original-title="Détails"><i
+                                                  class="ti-eye text-dark"></i></a></div>  
+                                            <div  *ngIf="d.etat==='Refusée'" class="text-danger">{{d.etat}}</div>  
+
+                                         
+
+                                            
+                                            <!--<span class="label label-success">Success</span>
+                                            <span class="label label-danger">Danger</span>
+                                            <span class="label label-info">Info</span>-->
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+
+
+        <div class="modal fade" id="detailsCours" tabindex="-1" role="dialog"
+                        aria-labelledby="formationEditModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="updateFormationModalLabel">Détails Formation </h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
+                              <div class="modal-body">
+                                 <form>
+            
+
+            
+                                    <div class="form-group">
+                                       <label for="libelle">Libelle</label>
+                                       <input type="text" name="libelle" class="form-control" id="libelle" 
+                                          ngModel="{{details?.formation.libelle}}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                       <label for="supportcours">Support Cours</label>
+                                       <input type="text" name="supportcours" #nameInput5 class="form-control" id="supportcours" ngModel="{{details?.formation.support_cours}}" disabled>
+                                    </div>
+            
+                                    <div class="form-group">
+                                       <label for="prix">Prix</label>
+                                       <input type="number" name="prix" class="form-control" id="prix" ngModel="{{details?.formation.prix}}" disabled>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="formateur">Formateur</label>
+                                        <input type="text" name="formateur" class="form-control" id="formateur" ngModel="{{details?.formation.formateur.username}}" disabled>
+                                     </div>
+            
+                                     <div class="form-group">
+                                        <label for="salle">Salle</label>
+                                        <input type="text" name="salle" class="form-control" id="salle" ngModel="{{details?.formation.salle.nom}}" disabled>
+                                     </div>
+
+                                    <div class="modal-footer">
+                                      
+                                       <button type="button" id="" data-dismiss="modal" class="btn btn-secondary ">Cancel</button>
+            
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+
+ 
+
+
+    </div>
+  </div>
+</section>
+<!-- /courses -->
+
+
+<!-- footer -->
+<footer>
+  <!-- newsletter -->
+  <div class="newsletter">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+          <h3 class="text-white">Subscribe Now</h3>
+          <form action="#">
+            <div class="input-wrapper">
+              <input type="email" class="form-control border-0" id="newsletter" name="newsletter"
+                placeholder="Enter Your Email...">
+              <button type="submit" value="send" class="btn btn-primary">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- footer content -->
+  <div class="footer bg-footer section border-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
+          <!-- logo -->
+          <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="../../../../assets/images/logo.png"
+              alt="logo"></a>
+          <ul class="list-unstyled">
+            <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
+            <li class="mb-2">+1 (2) 345 6789</li>
+            <li class="mb-2">+1 (2) 345 6789</li>
+            <li class="mb-2">contact@yourdomain.com</li>
+          </ul>
+        </div>
+        <!-- company -->
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+          <h4 class="text-white mb-5">COMPANY</h4>
+          <ul class="list-unstyled">
+            <li class="mb-3"><a class="text-color" href="about.html">About Us</a></li>
+            <li class="mb-3"><a class="text-color" href="teacher.html">Our Teacher</a></li>
+            <li class="mb-3"><a class="text-color" href="contact.html">Contact</a></li>
+            <li class="mb-3"><a class="text-color" href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <!-- links -->
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+          <h4 class="text-white mb-5">LINKS</h4>
+          <ul class="list-unstyled">
+            <li class="mb-3"><a class="text-color" href="courses.html">Courses</a></li>
+            <li class="mb-3"><a class="text-color" href="event.html">Events</a></li>
+            <li class="mb-3"><a class="text-color" href="gallary.html">Gallary</a></li>
+            <li class="mb-3"><a class="text-color" href="faqs.html">FAQs</a></li>
+          </ul>
+        </div>
+        <!-- support -->
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+          <h4 class="text-white mb-5">SUPPORT</h4>
+          <ul class="list-unstyled">
+            <li class="mb-3"><a class="text-color" href="#">Forums</a></li>
+            <li class="mb-3"><a class="text-color" href="#">Documentation</a></li>
+            <li class="mb-3"><a class="text-color" href="#">Language</a></li>
+            <li class="mb-3"><a class="text-color" href="#">Release Status</a></li>
+          </ul>
+        </div>
+        <!-- support -->
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+          <h4 class="text-white mb-5">RECOMMEND</h4>
+          <ul class="list-unstyled">
+            <li class="mb-3"><a class="text-color" href="#">WordPress</a></li>
+            <li class="mb-3"><a class="text-color" href="#">LearnPress</a></li>
+            <li class="mb-3"><a class="text-color" href="#">WooCommerce</a></li>
+            <li class="mb-3"><a class="text-color" href="#">bbPress</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- copyright -->
+  <div class="copyright py-4 bg-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-7 text-sm-left text-center">
+          <p class="mb-0">Copyright
+            <script>
+              var CurrentYear = new Date().getFullYear()
+              document.write(CurrentYear)
+            </script>
+            © themefisher
+          </p>
+        </div>
+        <div class="col-sm-5 text-sm-right text-center">
+          <ul class="list-inline">
+            <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i
+                  class="ti-facebook text-primary"></i></a></li>
+            <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i
+                  class="ti-twitter-alt text-primary"></i></a></li>
+            <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i
+                  class="ti-linkedin text-primary"></i></a></li>
+            <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i
+                  class="ti-instagram text-primary"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- /footer -->

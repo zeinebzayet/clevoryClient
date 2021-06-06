@@ -1,0 +1,544 @@
+<app-formateur></app-formateur>
+<section class="page-title-section overlay"
+    style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Mon Profil
+                            </a></li>
+                    <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+   <kendo-pdf-export #pdf>
+<div class="container" id="main-container" >
+
+<div class="row">
+    <div class="col-lg-4 col-xl-4">
+     
+        <div class="card-box text-center">
+
+
+
+                    <img *ngIf="formateur.fileName===null" class="rounded-circle avatar-xl img-thumbnail"
+                    src="../../../../assets/images/inconnue.jpg">
+                    <img *ngIf="formateur.fileName!==null" class="rounded-circle avatar-xl img-thumbnail"
+                                 src = "{{this.profilService.host+'/api/Imgformateurs/'+formateur.cin}}" 
+                              
+                                alt="About the image">
+
+
+             
+            <h4 class="mb-0">{{formateur.username}}&nbsp;{{formateur.prenom}}</h4>
+            <p class="text-muted">{{formateur.typeformateur}}</p>
+
+            <button type="button"  (click)="onOpenModal(null,'add')"  class="btn btn-success btn-xs waves-effect mb-2 waves-light">Modifier Votre Photo</button>
+
+            <div class="text-left mt-3">
+               
+
+                <p class=" mb-2 font-13"><strong>Mobile :</strong><span class="ml-2">+216 {{formateur.tel}}</span></p>
+
+                <p class=" mb-2 font-13"><strong>Email :</strong> <span class="ml-2 ">{{formateur.email}}</span></p>
+
+                <p class=" mb-1 font-13"><strong>Adresse :</strong> <span class="ml-2">{{formateur.adresse}}</span></p>
+            </div>
+
+           
+        </div> <!-- end card-box -->
+        
+        <div class="card-box">
+            <h4 class="header-title">Compétence</h4>
+            <p class="font-13 mb-3">{{formateur.competence}}</p>
+            
+        </div> <!-- end card-box-->
+     
+        <div class="card-box">
+            <h4 class="header-title">Paramètre</h4>
+            <button class="btn btn-outline-success" kendo-button (click)="pdf.saveAs('demo-content.pdf')">
+                        Export As PDF
+                      </button>
+                      <button  (click)="onOpenModal(formateur,'edit')" class="btn btn-outline-warning" >
+                       Mettre à jour
+                      </button> 
+            
+        </div> <!-- end card-box-->
+
+        
+
+    </div> <!-- end col-->
+   
+    <div class="col-lg-8 col-xl-8">
+        <div class="card-box">
+            <div class="tab-content">
+                
+                <div class="tab-pane show active" id="about-me">
+
+                    <h5 class="mb-4 text-uppercase" ><i class="mdi mdi-briefcase mr-1"></i>
+                        Experience  &nbsp; &nbsp; <i class="fas fa-plus"  (click)="onOpenModal(null,'addexperience')"  ></i> </h5>
+
+                    <ul class="list-unstyled timeline-sm" *ngFor="let experience of experiences "> 
+                        <li class="timeline-sm-item">
+                            <span class="timeline-sm-date">{{experience.datefin}} </span> <br>
+                            <span class="timeline-sm-date">{{experience.datedeb}} </span> <br>
+                            <span class="timeline-sm-date"><button  (click)="onOpenModal(experience,'editExperience')"   class="btn btn-outline-info" >edit</button></span>
+                            <h5 class="mt-0 mb-1">{{experience.poste}}</h5>
+                            <p>{{experience.societe}}</p>
+                            <p class=" mt-2">{{experience.description}}</p>
+
+                        </li>
+                        
+                   
+                    </ul>
+
+
+                </div>
+
+                <div class="tab-pane show active" id="about-me">
+
+                    <h5 class="mb-4 text-uppercase" ><i class="mdi mdi-briefcase mr-1"></i>
+                        Parcours Scolaire   &nbsp;  &nbsp;  <i class="fas fa-plus" (click)="onOpenModal(null,'addparcours')" ></i> </h5>
+
+                    <ul class="list-unstyled timeline-sm" *ngFor="let p of parcours "> 
+                        <li class="timeline-sm-item">
+                            <span class="timeline-sm-date">{{p.datedeb}} </span> <br>
+                            <span class="timeline-sm-date">{{p.datefin}} </span><br>
+                            <span class="timeline-sm-date"><button  (click)="onOpenModal(p,'editParcours')"   class="btn btn-outline-info" >edit</button></span>
+                            <h5 class="mt-0 mb-1">{{p.etablissement}}</h5>
+                            <p>{{p.specialite}}</p>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane show active" id="about-me">
+
+                  <h5 class="mb-4 text-uppercase" ><i class="mdi mdi-briefcase mr-1"></i>
+                      Certification  &nbsp; &nbsp; <i class="fas fa-plus"  (click)="onOpenModal(null,'addcertification')"  ></i> </h5>
+
+                  <ul class="list-unstyled timeline-sm" *ngFor="let c of certification "> 
+                      <li class="timeline-sm-item">
+                          <span class="timeline-sm-date">{{c.datedeb}} </span> 
+                          <span class="timeline-sm-date"><button  (click)="onOpenModal(c,'updateCertif')"   class="btn btn-outline-info" >edit</button></span>
+                          <h5 class="mt-0 mb-1">{{c.nom}}</h5>
+
+                      </li> 
+                  </ul>
+              </div>
+
+            </div> <!-- end tab-content -->
+         
+        </div> <!-- end card-box-->
+
+</div> <!-- end col -->
+</div>
+</div>
+</kendo-pdf-export>
+
+
+<div class="modal fade" id="addPhoto" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+aria-hidden="true">
+<div class="modal-dialog " role="document">
+   <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="addEmployeeModalLabel">Ajouter une Photo</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+      <div class="modal-body">
+         <form [formGroup]="this.profilService.dataForm">
+
+            <div class="form-file-upload">
+               <label for="fichier">Image </label><br>
+                   <input type="file" id="fichier" accept="image/*" (change)="onSelectFile($event)">
+                   <img [src]="imgURL" height="200" *ngIf="imgURL">
+           </div>
+
+            <div class="modal-footer">
+               <button type="button" id="add-employee-form" class="btn btn-secondary"
+                  data-dismiss="modal">Fermer</button>
+               <button type="submit" (click)="onSubmit()" class="btn btn-success" data-dismiss="modal"
+                  >Enregistre</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+</div>
+
+   <div class="modal fade" id="addExperience" tabindex="-1" role="dialog" aria-labelledby="addMaterielModalLabel"
+               aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="addMaterielModalLabel">Ajouter Experience</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <form [formGroup]="experienceForm">
+
+                           <div class="form-group">
+                              <label for="datedeb">Date Début*</label>
+                              <input type="date" [formControl]="experienceForm.controls.datedeb" name="datedeb"
+                                 class="form-control" id="datedeb" required>
+                           </div>
+
+
+                           <div class="form-group">
+                            <label for="datefin">Date Fin*</label>
+                            <input type="date" [formControl]="experienceForm.controls.datefin" name="datefin"
+                               class="form-control" id="datefin" required>
+                         </div>
+                           <div class="form-group">
+                              <label for="poste">Poste*</label>
+                              <input type="text" [formControl]="experienceForm.controls.poste" name="poste"
+                                 class="form-control" id="poste" required>
+                           </div>
+
+                           <div class="form-group">
+                            <label for="societe">Société*</label>
+                            <input type="text" [formControl]="experienceForm.controls.societe" name="societe"
+                               class="form-control" id="societe" required>
+                         </div>
+                         <div class="form-group">
+                            <label for="description">Description*</label>
+                            <input type="text" [formControl]="experienceForm.controls.description" name="description"
+                               class="form-control" id="description" required>
+                         </div>
+                          
+                           <div class="modal-footer">
+                              <button type="button" id="add-Materiel" class="btn btn-secondary"
+                                 data-dismiss="modal">Fermer</button>
+                              <button  [disabled]="experienceForm.invalid" type="submit" (click)="onAddExperience()" data-dismiss="modal" class="btn btn-success"
+                              >Enregistre</button>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="modal fade" id="addParcours" tabindex="-1" role="dialog" aria-labelledby="addMaterielModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="addMaterielModalLabel">Ajouter Parcours Scolaire</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form [formGroup]="parcoursForm">
+
+                        <div class="form-group">
+                           <label for="datedeb">Date Début*</label>
+                           <input type="date" [formControl]="parcoursForm.controls.datedeb" name="datedeb"
+                              class="form-control" id="datedeb" required>
+                        </div>
+
+
+                        <div class="form-group">
+                         <label for="datefin">Date Fin*</label>
+                         <input type="date" [formControl]="parcoursForm.controls.datefin" name="datefin"
+                            class="form-control" id="datefin" required>
+                      </div>
+                        <div class="form-group">
+                           <label for="specialite">Specialite*</label>
+                           <input type="text" [formControl]="parcoursForm.controls.specialite" name="specialite"
+                              class="form-control" id="specialite" required>
+                        </div>
+
+                        <div class="form-group">
+                         <label for="etablissement">Etablissement*</label>
+                         <input type="text" [formControl]="parcoursForm.controls.etablissement" name="etablissement"
+                            class="form-control" id="etablissement" required>
+                      </div>
+                    
+                       
+                        <div class="modal-footer">
+                           <button type="button" id="add-Materiel" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                           <button  [disabled]="parcoursForm.invalid" type="submit" data-dismiss="modal"  class="btn btn-success" (click)="onAddParcours()" 
+                           >Enregistre</button>
+                        </div>
+
+
+                       
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="modal fade" id="updateFormateur" tabindex="-1" role="dialog"
+         aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier  {{formateur.username}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <form #editForm="ngForm">
+ 
+                    <div class="form-group" >
+                        <label for="cin">Cin</label>
+                        <input type="number" ngModel="{{editFormateur?.cin}}" name="cin" class="form-control"
+                           id="cin" >
+                     </div>
+
+                     <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" ngModel="{{editFormateur?.username}}" name="username" class="form-control" id="username"
+                           aria-describedby="emailHelp">
+                     </div>
+
+                     <div class="form-group">
+                        <label for="capacite">Prénom</label>
+                        <input type="text" ngModel="{{editFormateur?.prenom}}" name="prenom" class="form-control"
+                           id="prenom">
+                     </div>
+                     <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" ngModel="{{editFormateur?.email}}" name="email" class="form-control"
+                           id="email">
+                     </div>
+
+                     <div class="form-group">
+                        <label for="adresse">Adresse</label>
+                        <input type="text" ngModel="{{editFormateur?.adresse}}" name="adresse" class="form-control"
+                           id="adresse">
+                     </div>
+
+                     <div class="form-group">
+                        <label for="tel">Tel</label>
+                        <input type="number" ngModel="{{editFormateur?.tel}}" name="tel" class="form-control"
+                           id="tel">
+                     </div>
+
+                     <div class="form-group">
+                        <label for="competence">Compétance</label>
+                        <input type="text" ngModel="{{editFormateur?.competence}}" name="competence" class="form-control"
+                           id="competence">
+                     </div>
+ 
+                     <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="text" ngModel="{{editFormateur?.password}}" name="password" class="form-control"
+                           id="password">
+                     </div>
+
+
+                     <div class="form-group" hidden>
+                        <label for="typeformateur">typeformateur</label>
+                        <input type="text" ngModel="{{editFormateur?.typeformateur}}" name="typeformateur" class="form-control"
+                           id="typeformateur">
+                     </div>
+
+                     <div class="modal-footer">
+                        <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Fermer</button>
+                        <button (click)="onUpdateFormateur(editForm.value)"data-dismiss="modal"
+                           class="btn btn-success">Enregistre</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+      <div class="modal fade" id="updateExperience" tabindex="-1" role="dialog"
+      aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #editFormExp="ngForm">
+
+                 <div class="form-group" >
+                     <label for="datedeb">Date Debut</label>
+                     <input type="date" ngModel="{{editExperience?.datedeb}}" name="datedeb" class="form-control"
+                        id="datedeb" >
+                  </div>
+
+                  <div class="form-group">
+                     <label for="datefin">Date Fin</label>
+                     <input type="date" ngModel="{{editExperience?.datefin}}" name="datefin" class="form-control" id="datefin"
+                        aria-describedby="emailHelp">
+                  </div>
+
+                  <div class="form-group">
+                     <label for="poste">Poste</label>
+                     <input type="text" ngModel="{{editExperience?.poste}}" name="poste" class="form-control"
+                        id="poste">
+                  </div>
+                  <div class="form-group">
+                     <label for="societe">Societe</label>
+                     <input type="text" ngModel="{{editExperience?.societe}}" name="societe" class="form-control"
+                        id="societe">
+                  </div>
+
+                  <div class="form-group">
+                     <label for="description">Description</label>
+                     <input type="text" ngModel="{{editExperience?.description}}" name="description" class="form-control"
+                        id="description">
+                  </div>
+
+                  
+
+                  <div class="modal-footer">
+                     <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Fermer</button>
+                     <button (click)="onUpdateExperience(editExperience?.id,editFormExp.value)"data-dismiss="modal"
+                        class="btn btn-success">Enregistre</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="modal fade" id="updateParcours"  tabindex="-1" role="dialog"
+   aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #editFormP="ngForm">
+
+                <div class="form-group" >
+                    <label for="datedeb">Date Debut</label>
+                    <input type="date" ngModel="{{editParcours?.datedeb}}" name="datedeb" class="form-control"
+                       id="datedeb" >
+                 </div>
+
+               <div class="form-group">
+                  <label for="datefin">Date Fin</label>
+                  <input type="date" ngModel="{{editExperience?.datefin}}" name="datefin" class="form-control" id="datefin"
+                     aria-describedby="emailHelp">
+               </div>
+
+               <div class="form-group">
+                <label for="etablissement">Etablissement</label>
+                <input type="text" ngModel="{{editParcours?.etablissement}}" name="etablissement" class="form-control"
+                   id="etablissement">
+             </div>
+
+             <div class="form-group">
+                <label for="specialite">Specialite</label>
+                <input type="text" ngModel="{{editParcours?.specialite}}" name="specialite" class="form-control"
+                   id="specialite">
+             </div>
+
+               
+
+               
+
+               <div class="modal-footer">
+                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Fermer</button>
+                  <button (click)="onUpdateParcours(editParcours?.id,editFormP.value)"data-dismiss="modal"
+                     class="btn btn-success">Enregistre</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+  
+
+<div class="modal fade" id="addcertification" tabindex="-1" role="dialog" aria-labelledby="addMaterielModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+   <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="addMaterielModalLabel">Ajouter Certification</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+      <div class="modal-body">
+         <form [formGroup]="certifForm">
+
+            <div class="form-group">
+               <label for="datedeb">Date Début*</label>
+               <input type="date" [formControl]="certifForm.controls.datedeb" name="datedeb"
+                  class="form-control" id="datedeb" required>
+            </div>
+
+            <div class="form-group">
+               <label for="nom">Certification*</label>
+               <input type="text" [formControl]="certifForm.controls.nom" name="nom"
+                  class="form-control" id="nom" required>
+            </div>
+           
+            <div class="modal-footer">
+               <button type="button" id="add-Materiel" class="btn btn-secondary"
+                  data-dismiss="modal">Fermer</button>
+               <button  [disabled]="certifForm.invalid" type="submit" (click)="onAddCertif()" data-dismiss="modal" class="btn btn-success"
+               >Enregistre</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="updateCertif"  tabindex="-1" role="dialog"
+   aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #editFormC="ngForm">
+
+                <div class="form-group" >
+                    <label for="datedeb">Date Debut</label>
+                    <input type="date" ngModel="{{editCertif?.datedeb}}" name="datedeb" class="form-control"
+                       id="datedeb" >
+                 </div>
+
+               <div class="form-group">
+                <label for="nom">Certification</label>
+                <input type="text" ngModel="{{editCertif?.nom}}" name="nom" class="form-control"
+                   id="nom">
+             </div>
+
+               <div class="modal-footer">
+                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Fermer</button>
+                  <button (click)="onupdateCertif(editCertif?.id,editFormC.value)"data-dismiss="modal"
+                     class="btn btn-success">Enregistre</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+</section>
+

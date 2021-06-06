@@ -1,0 +1,84 @@
+<app-formateur></app-formateur>
+<section class="page-title-section overlay"
+    style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Mes Etudiants
+                            </a></li>
+                    <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container"  id="main-container">
+      <div class="row">
+<div class="col-lg-4 col-sm-6 mb-5"  *ngFor = "let formation of formations" >
+    <div class="card border-0 rounded-0 hover-shadow" >
+      <div class="card-img position-relative">
+        <img class="card-img-top rounded-0" src="../../../../assets/images/events/event-3.jpg" alt="event thumb">
+       
+      </div>
+      <div class="card-body">
+        <!-- location -->
+      
+        <h4  class=" text-dark mr-5"> {{formation.libelle}} </h4>
+        <p><i class="ti-calendar mr-1 text-color"></i> {{formation.datedeb}}&nbsp;<i class="ti-arrow-right mr-1 text-light" aria-hidden="true"></i>  &nbsp;<i class="ti-calendar mr-1 text-color"></i> {{formation.datefin}} </p>
+       
+        <!--<a href="course-single.html" class="btn btn-info btn-sm">Apply now</a>-->
+
+        <button (click)="onOpenModal(formation, 'demande')" class="btn btn-info btn-lg" data-bs-toggle="modal"
+        data-bs-target="#demandeModal"> Liste Des Etudiants</button>
+      </div>
+    </div>  
+  </div>
+  </div>
+
+
+  <div class="modal fade" id="demandeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">List Des Etudiant</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"  *ngFor = "let demande  of demandes"   >
+          
+          <div class="row sideBar-body">
+            <div class="col-sm-3 col-xs-3 sideBar-avatar">
+              <div class="avatar-icon">
+                <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
+              </div>
+            </div>    
+            <div class="col-sm-9 col-xs-9 sideBar-main">
+              <div class="row">
+                <div class="col-sm-8 col-xs-8 sideBar-name">
+                  <span class="name-meta">{{demande.client.username}} &nbsp; {{demande.client.prenom}} 
+                </span>
+                </div>
+                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+                  <span class="time-meta pull-right">
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div  *ngIf= "demande.length==0" >
+            <span>Aucun etudiants</span>
+
+          </div>
+
+
+         
+        </div> 
+        
+      </div> 
+    </div>
+  </div>
+  </div>
+  </section>

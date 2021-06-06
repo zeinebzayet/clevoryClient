@@ -1,0 +1,112 @@
+<app-client-ese></app-client-ese>
+
+
+<!-- page title -->
+<section class="page-title-section overlay" style="background-image: url('../../assets/images/backgrounds/page-title.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="list-inline custom-breadcrumb">
+            <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Nos Examens</a></li>
+            <li class="list-inline-item text-white h3 font-secondary "></li>
+          </ul>
+          <form style="float: right;margin-top:-40px"  class="search ">
+            <input type="text" placeholder="Search here..." name="" 
+            (ngModelChange)="searchExamen(key.value)" #key="ngModel" ngModel name="key" id="searchName">
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /page title -->
+  
+  <!-- courses -->
+  <section class="section">
+    <div class="container" id="main-container">
+      <!-- course list -->
+  <div class="row ">
+    <!-- course item -->
+    <div class="col-lg-4 col-sm-6 mb-5" *ngFor = "let examen of examens" >
+      <div class="card p-0 border-primary rounded-0 hover-shadow">
+        <img class="img-thumbnail"  src = "{{this.examensService.host+'/api/Imgexamens/'+examen.id}}"  alt="course thumb">
+        <div class="card-body">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">{{examen.specialite}}</li>
+          </ul>
+         
+            <h4 class="card-title">{{examen.libelle}}</h4>
+         
+          <p class="card-text mb-4"> {{examen.description}}</p>
+            <p>Niveau: {{examen.niveau}}</p>
+            <h5>Prix{{examen.prix}} DT</h5>
+          <!--<a href="course-single.html" class="btn btn-info btn-sm">Apply now</a>-->
+          <button (click)="onOpenModal(examen, 'demande')" class="btn btn-info btn-lg" >S'inscrire</button>
+        </div>
+      </div>
+    </div>
+    <!-- course item -->
+
+
+
+
+
+
+  
+   
+    <div class="modal fade" id="demandeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Inscription Examen</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm"  class="row" autocomplete="off">
+                    <div class="form-group">
+                       <label for="date">Date </label>
+                       <input type="date" ngModel name="date" class="form-control" id="date" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">non</button>
+                        <button type="submit" (click)="demande(demandeExamen?.id,addForm);addNotification(demandeExamen?.libelle)"  [disabled]="addForm.invalid" data-dismiss="modal" class="btn btn-success">Confirmer</button>
+                      </div>
+              </form>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabel">Alert</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span> 
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Vous êtes déjà demander une inscription pour cette formation !!!</p>
+  
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+               
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    </div>
+  </section>
+                                  <!--****************footer**************-->
+<app-footer></app-footer>
+  

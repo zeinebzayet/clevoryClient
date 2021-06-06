@@ -1,0 +1,109 @@
+<app-entreprise-layout></app-entreprise-layout>
+<section class="page-title-section overlay" style="background-image: url('../../assets/images/backgrounds/page-title.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <ul class="list-inline custom-breadcrumb">
+            <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Demande Des Employés</a></li>
+            <li class="list-inline-item text-white h3 font-secondary "></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" id="main-container">
+      <div class="row">
+      
+        <div class="col-md-11">
+            <div class="ibox-content m-b-sm border-bottom">
+                <div class="p-xs">
+                    <!--  <div class="pull-left m-r-md">
+                    <i class="fa fa-globe text-navy mid-icon"></i>
+                </div>-->
+                    <h4>Demandes d'Isncription des Employés</h4>
+    
+                    <div style="float: right;margin-top: -40px;" class="search">
+                        <input class="search__input" type="text" name=""
+                        (ngModelChange)="searchDemandeEmployee(key.value)"  #key="ngModel" ngModel name="key"
+                            id="searchName" placeholder="Search" />
+                        <button class="fa fa-search search__button"></button>
+                    </div>
+                </div>
+    
+            </div>
+            <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane  fade  active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                        <h4 class="font-weight-bold mt-0 mb-4"></h4>
+                        <div  *ngFor="let c of demande" class="bg-white card mb-4 order-list shadow-sm">
+                            <div class="gold-members p-4">
+                                <a >
+                                </a>
+                                <div class="media">
+                                    <a >
+
+                                        <img *ngIf="c.client.fileName===null"  class="mr-4"
+                        src="../../../../assets/images/inconnue.jpg">
+                        <img *ngIf="c.client.fileName!==null" class="mr-4"
+                                     src = "{{this.serviceAdmin.host+'/api/ImgClients/'+c.client.cin}}" 
+                                  
+                                    alt="About the image">
+
+
+                                    </a>
+                                    <div class="media-body">
+                                        <a >
+                                            <span class="float-right text-info">Envoyée Le {{c.date}} <i class="icofont-check-circled text-success"></i></span>
+                                        </a>
+                                        <h6 class="mb-2">
+                                            <a ></a>
+                                            <a  class="text-info">{{c.client.prenom}} {{c.client.username}}</a>
+                                        </h6>
+                                        <p href="mailto:{{c.email}}" class="text-gray mb-1"><i class="fa fa-envelope"></i>&nbsp;  {{ c.client.email}}
+                                        </p>
+                                        <p class="text-gray mb-3"><i class="fa fa-phone"></i>&nbsp; {{c.client.tel}} , <i class="fa fa-map-marker"></i>&nbsp; {{c.client.adresse}}</p>
+                                     
+                                      
+                                        <hr>
+                                        <div class="float-right">
+                                            <a class="btn btn-sm btn-outline-primary" ><i class="icofont-headphone-alt"></i> Refuser</a>
+                                            <a class="btn btn-sm btn-primary"(click)="onOpenModal(c, 'demande')" data-toggle="modal"
+                                            data-target="#demandeModal"><i class="icofont-refresh"></i> Accepter</a>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="modal fade" id="demandeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Acceptation de la Demande</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Êtes-vous sûr de vouloir accepter la demande de l'employé {{d?.client.username}} {{d?.client.prenom}} afin de rejoindre votre entreprise  ?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">non</button>
+              <button type="button" data-dismiss="modal" (click)="accepteDemande(d.client.cin,d.id,d);addNotificationAccepte(d.client.cin,d.entreprise.nom)"  class="btn btn-primary">Confirmer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+</div>
+</div>
+</section>
+
+<app-footer></app-footer>

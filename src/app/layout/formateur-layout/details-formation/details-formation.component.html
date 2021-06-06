@@ -1,0 +1,155 @@
+<app-formateur></app-formateur>
+
+<section class="page-title-section overlay"
+    style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Détails
+                            Formation</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="section">
+    <div class="container" id="main-container">
+        
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="project-info-box mt-0">
+                    <h5>{{formations.libelle}}</h5>
+                    <p class="mb-0">{{formations.description}}.</p>
+                </div><!-- / project-info-box -->
+    
+                <div class="project-info-box">
+                    <p><b>Constructeur:</b> {{formations.constructeur}}</p>
+                    <p><b>Technologie:</b> {{formations.technologie}}</p>
+                    <p><b>Date:</b> {{formations.datedeb}} {{formations.datefin}}</p>
+                    <p><b>Salle:</b> {{formations.salle.nom}}</p>
+                    <p class="mb-0"><b>Prix:</b> {{formations.prix}}</p>
+                </div><!-- / project-info-box -->
+    
+                <div class="project-info-box mt-0 mb-0">
+                    <p class="mb-0">
+                        <span class="fw-bold mr-10 va-middle hide-mobile">Participants:</span>
+                        <dd class="project-people">
+                            <a *ngFor = "let demande  of demandes" (click)="onOpenModal(demande, 'detailsEtudiant')">  <img *ngIf="demande.client.fileName===null" class="mr-5 mb-0 img-circle" 
+                                src="../../../../assets/images/inconnue.jpg">
+                                <img *ngIf="demande.client.fileName!==null" class="mr-5 mb-0 img-circle" 
+                                             src = "{{this.emploiService.host+'/api/ImgClients/'+demande.client.cin}}" 
+                                          
+                                            alt="About the image"></a>
+                      
+                            
+                          
+                  
+                            </dd>
+                    </p>
+                </div><!-- / project-info-box -->
+            </div><!-- / column -->
+    
+            <div class="col-md-7">
+                <img  src="../../../../../../assets/images/events/event-3.jpg" alt="project-image" class="rounded">
+                <div class="project-info-box">
+                    <p><b>Support de Cours:</b> {{formations.support_cours}}</p>
+                    <!--<p><b>Skills:</b> Illustrator</p>-->
+                </div><!-- / project-info-box -->
+            </div><!-- / column -->
+        </div>
+
+
+
+
+
+
+        <div class="modal fade" id="demandeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content" >
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">List Des Etudiant</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" >
+                  
+                    <form>
+            
+
+            
+                        <div class="form-group">
+                           <label for="cin">Cin</label>
+                           <input type="text" name="cin" class="form-control" id="cin" 
+                              ngModel="{{demandeClient?.client.cin}}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Nom</label>
+                            <input type="text" name="username" class="form-control" id="username" 
+                               ngModel="{{demandeClient?.client.username}}" disabled>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" name="prenom" class="form-control" id="prenom" 
+                               ngModel="{{demandeClient?.client.prenom}}" disabled>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" class="form-control" id="email" 
+                               ngModel="{{demandeClient?.client.email}}" disabled>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="adresse">Adresse</label>
+                            <input type="text" name="adresse" class="form-control" id="adresse" 
+                               ngModel="{{demandeClient?.client.adresse}}" disabled>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="tel">Tél</label>
+                            <input type="number" name="tel" class="form-control" id="tel" 
+                               ngModel="{{demandeClient?.client.tel}}" disabled>
+                         </div>
+
+                         <div class="form-group">
+                            <label for="niveau">Niveau</label>
+                            <input type="text" name="niveau" class="form-control" id="niveau" 
+                               ngModel="{{demandeClient?.client.niveau}}" disabled>
+                         </div>
+
+
+                        <div class="modal-footer">
+                          
+                           <button type="button" id="" data-dismiss="modal" class="btn btn-secondary ">Cancel</button>
+
+                        </div>
+                     </form>
+        
+        
+                 
+                </div> 
+                
+              </div> 
+            </div>
+          </div>
+
+
+
+
+
+
+
+    </div>
+    </section>
+
+ 
+ 

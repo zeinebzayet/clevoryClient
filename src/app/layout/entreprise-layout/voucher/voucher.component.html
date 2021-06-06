@@ -1,0 +1,261 @@
+<app-entreprise></app-entreprise>
+
+<section class="page-title-section overlay"
+    style="background-image: url('../../assets/images/backgrounds/page-title.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Mes
+                            Vouchers Formation</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary "></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+
+    <!--*************** tableau affiche les vouchers formation*************-->
+    <div class="container" id="main-container">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="wrapper wrapper-content animated fadeInRight">
+
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <div class="p-xs">
+                            <!--  <div class="pull-left m-r-md">
+                            <i class="fa fa-globe text-navy mid-icon"></i>
+                        </div>-->
+                            <h3>Liste des Vouchers Formation</h3>
+
+                            <div style="float: right;margin-top: -40px;" class="search">
+                                <input class="search__input" type="text" name=""
+                                    (ngModelChange)="searchExamen(key.value)" #key="ngModel" ngModel name="key"
+                                    id="searchName" placeholder="Search" />
+                                <button class="fa fa-search search__button"></button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ibox-content forum-container">
+
+                        <div class="forum-title">
+                            <div class="pull-right forum-desc">
+
+                            </div>
+                            <h3>Formations</h3>
+                        </div>
+
+                        <div *ngFor="let v of voucher " class="forum-item active">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <a (click)="onOpenModal(v,'detailsF')"
+                                        class="forum-item-title">{{v.demandeVoucher.formation.libelle}}</a>
+                                    <div class="forum-sub-title">{{v.demandeVoucher.formation.description}} </div>
+                                </div>
+                                <div class="col-md-2 forum-info">
+                                    <span class="views-number">
+                                        {{v.code}}
+                                    </span>
+                                    <div>
+                                        <small>Code Voucher</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <a (click)="onOpenModal(v,'assign')" class="btn btn-xs btn-primary mb-3">Assigner
+                                        voucher</a>
+
+
+                                    <div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2 forum-info">
+                                    <a (click)="onOpenModal(v,'details')" (click)="getList(v.code)" class="table-link ">
+                                        <span class="fa-stack">
+
+                                            <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--
+<div class="modal fade" id="detailsFormation" tabindex="-1" role="dialog"
+aria-labelledby="addFormateurModalLabel" aria-hidden="true">
+<div class="modal-dialog-scrollable modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addFormateurModalLabel">Details Formation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+
+
+
+                <div class="form-group">
+                   <label for="libelle">Libelle</label>
+                   <input type="text" name="libelle" class="form-control" id="libelle" 
+                      ngModel="{{v.formation.libelle}}" disabled>
+                </div>
+                <div class="form-group">
+                   <label for="supportcours">Support Cours</label>
+                   <input type="text" name="supportcours" #nameInput5 class="form-control" id="supportcours" ngModel="{{v.formation.support_cours}}" disabled>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="formateur">Formateur</label>
+                    <input type="text" name="formateur" class="form-control" id="formateur" ngModel="{{v.formation.formateur.prenom}}" disabled>
+                 </div>
+
+                 <div class="form-group">
+                    <label for="salle">Salle</label>
+                    <input type="text" name="salle" class="form-control" id="salle" ngModel="{{v.formation.salle.nom}}" disabled>
+                 </div>
+
+                <div class="modal-footer">
+                  
+                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary ">Cancel</button>
+
+                </div>
+             </form>
+    </div>
+    </div>
+    </div>
+    </div>-->
+
+
+
+ <!--***************** Popup : Liste des employes assignée au voucher ************ -->
+
+    <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="ListeEmpModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog-scrollable modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ListeEmpModalLabel">Liste des employés ayant le voucher {{v?.code}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                    <th hidden><span>&nbsp;</span></th>
+                                    <th hidden><span>&nbsp;</span></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let c of clients">
+                                <tr>
+                                    <td>
+                                        <span class="mb-0">
+                                            {{c.prenom}}
+                                            {{c.username}}</span>
+                                    </td>
+                                    <td>
+                                        <a href="mailto:{{c.email}}" style="color: blue;"><i
+                                                class="fa fa-envelope pr-1"></i>
+                                            {{ c.email}}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+                            <!--*****************Popup: Assignation voucher Formation aux employés************ -->
+
+    <div class="modal fade" id="assignationVoucher" tabindex="-1" role="dialog" aria-labelledby="addFormateurModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog-scrollable modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFormateurModalLabel">Assignation voucher aux employés</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <ng-select  placeholder="Select employés" appendTo="body" multiple="true" [(ngModel)]="selectedCin"
+                        (change)="getValues()" [maxSelectedItems]="nbMax" name="mySelectBox" required>
+                        <ng-option *ngFor="let client of clients" [value]="client.cin">
+
+                            {{client.username}} {{client.prenom}}
+                        </ng-option>
+                    </ng-select>
+
+
+                    <div class="modal-footer">
+                        <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                        <button [disabled]="this.nbMax===0" (click)="AssignVoucher(assignV.code)" data-dismiss="modal" type="submit"
+                            class="btn btn-success">Valider</button>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</section>
+
+                                <!--********************footer******************-->
+<app-footer></app-footer>

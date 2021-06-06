@@ -1,0 +1,172 @@
+<app-entreprise></app-entreprise>
+
+<section class="page-title-section overlay" style="background-image: url('../../assets/images/backgrounds/page-title.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <ul class="list-inline custom-breadcrumb">
+            <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Archive Des Employés</a></li>
+            <li class="list-inline-item text-white h3 font-secondary "></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container" id="main-container">
+      <div class="row">
+<div class="main-content">
+    <div class=" col-md-12">
+        <div class="card">
+            <div class="row">
+                <div class=" col-md-12">
+                    <div class="card-body">
+                        <div class="tab-content">
+
+                            <!--****************Affichage formateurs************-->
+
+                            <div class="tab-pane active" id="formateurs">
+                                <link rel="stylesheet"
+                                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+                                    integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA="
+                                    crossorigin="anonymous" />
+                                <div id="main-container" class="container mt-3 mb-4">
+                                    <div class=" mt-4 mt-lg-0">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row bootstrap snippets bootdeys">
+
+                                                    <div class="col-md-9 col-sm-7">
+
+                                                    </div>
+                                                   
+                                                    <div class="col-md-3 col-sm-5">
+                                                        <form class="form-inline my-2 my-lg-0">
+                                                            <div class="form-group">
+                                                                <input type="search"
+                                                                    (ngModelChange)="searchClient(key.value)"
+                                                                    #key="ngModel" ngModel name="key" id="searchName"
+                                                                    class="form-control mr-sm-2" placeholder="Search..."
+                                                                    required>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+                                                    <table class="table manage-candidates-top mb-0">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th>Employés</th>
+
+                                                                <th class="text-center">Poste</th>
+                                                                <th class="action text-right">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let c of clients;let i=index"
+                                                                class="candidates-list">
+                                                                <td class="title">
+                                                                    <div class="thumb">
+                                                                        <img class="img-fluid"
+                                                                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                                                            alt="">
+                                                                    </div>
+                                                                    <div class="candidate-list-details">
+                                                                        <div class="candidate-list-info">
+                                                                            <div class="candidate-list-title">
+                                                                                <h5 class="mb-0"><a
+                                                                                        href="#">{{c.prenom}}
+                                                                                        {{c.username}}</a></h5>
+                                                                            </div>
+                                                                            <div class="candidate-list-option">
+                                                                                <ul class="list-unstyled">
+                                                                                    <li><i
+                                                                                            class="fas fa-phone pr-1"></i>{{c.tel}}
+                                                                                        &nbsp;&nbsp;<i
+                                                                                            class="fa fa-envelope pr-1"></i>
+                                                                                        {{c.email}}</li>
+                                                                                    <li><i
+                                                                                            class="fas fa-map-marker-alt pr-1"></i>{{c.adresse}}
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="candidate-list-favourite-time text-center">
+                                                                    <a class="candidate-list-favourite order-2 text-danger"
+                                                                        href="#"><i class=""></i></a>
+                                                                    <span
+                                                                        class="candidate-list-time order-1">{{c.poste}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <ul
+                                                                        class="list-unstyled mb-0 d-flex justify-content-end">
+                                                                        <li><a (click)="onOpenModal(c,'details')"
+                                                                                class="text-primary"
+                                                                                data-toggle="tooltip" title=""
+                                                                                data-original-title="view"><i
+                                                                                    class="far fa-eye"></i></a>
+                                                                        </li>
+                                                                       
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!--*******************Details Formateur****************-->
+                          
+<div class="modal fade" id="detailsClient" tabindex="-1" role="dialog"
+aria-labelledby="addFormateurModalLabel" aria-hidden="true">
+<div class="modal-dialog-scrollable modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addFormateurModalLabel">Details Employée</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>CIN: {{detailsClient?.cin}}</p>
+            <p>Nom: {{detailsClient?.username}}</p>
+            <p>Prénom: {{detailsClient?.prenom}}</p>
+            <p>Adresse: {{detailsClient?.adresse}}</p>
+            <p>Téléphone: {{detailsClient?.tel}}</p>
+            <p>Adresse Courriel: {{detailsClient?.email}}</p>
+            <p>Poste: {{detailsClient?.poste}}</p>
+            <p>Niveau: {{detailsClient?.niveau}}</p>
+            <div class="modal-footer">
+                <button type="button" id="" data-dismiss="modal"
+                    class="btn btn-secondary">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+                        
+
+                           
+
+
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+            </div>
+            </div></div></div></section>

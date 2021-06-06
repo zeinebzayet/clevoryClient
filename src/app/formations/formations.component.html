@@ -1,0 +1,193 @@
+<app-index></app-index>
+<!-- page title -->
+<section class="page-title-section overlay" style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline custom-breadcrumb">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Nos Formations</a></li>
+          <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+        </ul>
+        <form style="float: right;margin-top:-40px"  class="search ">
+          <input type="text" placeholder="Search here..." name="" 
+          (ngModelChange)="searchFormation(key.value)" #key="ngModel" ngModel name="key" id="searchName">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- courses -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <!-- event -->
+  
+      <!-- event -->
+      <div class="col-lg-4 col-sm-6 mb-5" *ngFor = "let formation of formations" >
+        <div class="card border-0 rounded-0 hover-shadow">
+          <div class="card-img position-relative">
+            <img class="card-img-top rounded-0" src="../../../../assets/images/events/event-3.jpg" alt="event thumb">
+           
+          </div>
+          <div class="card-body">
+            <!-- location -->
+          
+            <p><i class="ti-calendar mr-1 text-color"></i> {{formation.datedeb}}  &nbsp;<i class="ti-arrow-right mr-1 text-light" aria-hidden="true"></i>  &nbsp;<i class="ti-calendar mr-1 text-color"></i> {{formation.datefin}}  </p>
+           
+            <a href="event-single.html">
+              <h4  class="ti-flickr text-dark mr-2 card-title"> {{formation.libelle}} </h4>
+            </a>
+            <p><i class="ti-write text-primary mr-2 "></i> {{formation.description}}</p>
+            <!--<a href="course-single.html" class="btn btn-info btn-sm">Apply now</a>-->
+
+            <h5 *ngIf="formation.datedeb<this.myDate" class="text-danger text-center ">NB: Cette formation est achevée</h5>
+            <button *ngIf="formation.datedeb>=this.myDate" class="btn btn-info btn-lg" href="#signup" data-toggle="modal" data-target=".log-sign">Demande De Devis</button>
+          </div>
+        </div>
+      </div>
+      <!-- event -->
+ 
+      <!-- event -->
+  
+      <!-- event -->
+     
+
+      
+
+
+
+  
+   
+      <!-- Modal -->
+      <div class="modal fade log-sign" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+          <div class="modal-content">
+              
+              <div class="bs-example bs-example-tabs">
+                  <ul id="myTab" class="nav nav-tabs">
+                    <li id="tab1" class=" active tab-style login-shadow "  ><a href="#signin" data-toggle="tab" aria-checked="true">Log In</a></li>
+                    <li id="tab2" class=" tab-style "><a href="#signup" data-toggle="tab">Sign Up</a></li>
+                  </ul>
+              </div>
+            <div class="modal-body">
+              <div id="myTabContent" class="tab-content">
+              <div class="tab-pane  active in" id="signin">
+                  <form #add="ngForm" (ngSubmit)="onSubmit2(add)" class="form-horizontal">
+                  <fieldset>
+                     <div class="group">
+                        <input class="input"  id="username" name="username" ngModel required type="text">
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label class="label" for="date">Email address</label>
+                      </div>
+                  
+                      <div class="group">
+                        <input class="input" type="password" id="password" name="password" ngModel required>
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label class="label" for="date">Password</label>
+                       </div>
+      
+                      <div class="control-group">
+                         <label class="control-label" for="signin"></label>
+                          <div class="controls">
+                          <button type="submit" [disabled]="add.invalid" id="signin" name="signin" class="btn btn-primary btn-block">Connexion</button>
+                          </div>
+                      </div>
+                  </fieldset>
+                </form>
+              </div>
+                
+                
+            <div class="tab-pane fade" id="signup">
+              <form class="form-horizontal" id="msform" name="form"  [formGroup]="angForm" novalidate (ngSubmit)="onSubmit()" >
+                <fieldset>
+
+                  <div class="group">
+                    <input class="input" type="text" formControlName="cin" placeholder="Cin" formControlName="cin">
+                    <p *ngFor="let validation of account_validation_messages.cin">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('cin').hasError(validation.type) && (angForm.get('cin').dirty || angForm.get('cin').touched)">{{validation.message}}</span></p>
+                  </div>
+
+                  <div class="group">
+                    <input  class="input" type="text"  placeholder="Username" formControlName="username">
+                    <p *ngFor="let validation of account_validation_messages.username">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('username').hasError(validation.type) && (angForm.get('username').dirty || angForm.get('username').touched)">{{validation.message}}</span></p>                  
+
+                  </div>
+                  
+                  <div class="group">
+                    <input class="input" type="text"  placeholder="Prénom" formControlName="prenom">
+                    <p *ngFor="let validation of account_validation_messages.prenom">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('prenom').hasError(validation.type) && (angForm.get('prenom').dirty || angForm.get('prenom').touched)">{{validation.message}}</span></p>                 
+
+                  </div>
+
+                  <div class="form-group" hidden>
+                    <input class="form-control" value=""  placeholder="role" formControlName="role">  
+                   </div>
+
+                  <div class="group">
+                    <input class="input" placeholder="Email" formControlName="email">
+                    <p *ngFor="let validation of account_validation_messages.email">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('email').hasError(validation.type) && (angForm.get('email').dirty || angForm.get('email').touched)">{{validation.message}}</span></p>
+                    
+                  </div>
+                  
+                  <div class="group2">
+                    <input  class="input" type="text" placeholder="Adresse" formControlName="adresse">
+                    <p *ngFor="let validation of account_validation_messages.adresse">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('adresse').hasError(validation.type) && (angForm.get('adresse').dirty || angForm.get('adresse').touched)">{{validation.message}}</span></p>
+  
+                  </div> 
+                  
+                  <div class="group2">
+                    <input  class="input" type="text" placeholder="Téléphone" formControlName="tel">
+                    <p *ngFor="let validation of account_validation_messages.tel">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('tel').hasError(validation.type) && (angForm.get('tel').dirty || angForm.get('tel').touched)">{{validation.message}}</span></p>
+                    
+                  </div>
+
+                  <div class="group2">
+                    <input  class="input" type="text"  placeholder="Niveau Scolaire" formControlName="niveau">
+                    <p *ngFor="let validation of account_validation_messages.niveau">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('niveau').hasError(validation.type) && (angForm.get('niveau').dirty || angForm.get('niveau').touched)">{{validation.message}}</span></p>
+                    
+                  </div>
+
+                  <div class="group2">
+                    <input  class="input" type="password"  placeholder="Password" formControlName="password">
+                    <p *ngFor="let validation of account_validation_messages.password">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('password').hasError(validation.type) && (angForm.get('password').dirty || angForm.get('password').touched)">{{validation.message}}</span></p>
+                   
+                  </div>
+
+                  <div class="group2">
+                    <input  class="input"  type="password"  placeholder="Confirmer Password" formControlName="cpassword">
+                    <p *ngFor="let validation of account_validation_messages.cpassword">
+                      <span style="color: red;" class="error-message" *ngIf="angForm.get('cpassword').hasError(validation.type) && (angForm.get('cpassword').dirty || angForm.get('cpassword').touched)">{{validation.message}}</span></p>
+                   
+                  </div>
+
+                  <div class="control-group">
+                    <label class="control-label" for="signin"></label>
+                     <div class="controls">
+                     <button type="submit"  [disabled]="!angForm.valid" id="signin" name="signin" class="btn btn-primary btn-block">S'inscrire</button>
+                     </div>
+                 </div>
+
+                </fieldset>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</section>
+<!-- /courses -->
+<app-footer></app-footer>

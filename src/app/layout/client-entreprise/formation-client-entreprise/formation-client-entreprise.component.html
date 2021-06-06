@@ -1,0 +1,113 @@
+<app-client-ese></app-client-ese>
+<section class="page-title-section overlay"
+  style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline custom-breadcrumb">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Nos Formations</a>
+             
+          </li>
+         
+          <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+        </ul>
+        <form style="float: right;margin-top:-40px"  class="search ">
+          <input type="text" placeholder="Search here..." name="" 
+          (ngModelChange)="searchFormation(key.value)" #key="ngModel" ngModel name="key" id="searchName">
+          <button type="submit">Search</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- courses -->
+<section class="section">
+  <div class="container" id="main-container">
+    <div class="row">
+    
+      <div class="col-lg-4 col-sm-6 mb-5" *ngFor="let formation of formations">
+        <div class="card border-0 rounded-0 hover-shadow">
+          <div class="card-img position-relative">
+            <img class="card-img-top rounded-0" src="../../../../assets/images/events/event-3.jpg" alt="event thumb">
+
+          </div>
+          <div class="card-body">
+            <!-- location -->
+
+            <p><i class="ti-calendar mr-1 text-color"></i> {{formation.datedeb}} &nbsp;<i
+                class="ti-arrow-right mr-1 text-light" aria-hidden="true"></i> &nbsp;<i
+                class="ti-calendar mr-1 text-color"></i> {{formation.datefin}} </p>
+
+            <a href="event-single.html">
+              <h4 class="ti-flickr text-dark mr-2 card-title"> {{formation.libelle}} </h4>
+            </a>
+            <p><i class="ti-write text-primary mr-2 "></i> {{formation.description}}</p>
+            <!--<a href="course-single.html" class="btn btn-info btn-sm">Apply now</a>-->
+
+            <h5 *ngIf="formation.datedeb<this.myDate" class="text-danger text-center ">NB: Cette formation est achevée</h5>
+            <button *ngIf="formation.datedeb>=this.myDate" (click)="onOpenModal(formation, 'demande')" class="btn btn-info btn-lg">Demander un devis</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="modal fade" id="demandeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Demande de Devis</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Êtes-vous sûr de vouloir bien savoir sur cette Formation ?</p>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">non</button>
+                <button type="button" data-dismiss="modal"
+                  (click)="demande(demandeFormation.id);addNotification(demandeFormation.libelle)"
+                  class="btn btn-primary">Confirmer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabel">Alert</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Vous êtes déjà demander un devis pour cette formation !!!</p>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+                                <!--****************footer**************-->
+ <app-footer></app-footer>

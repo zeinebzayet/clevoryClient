@@ -1,0 +1,250 @@
+<app-entreprise></app-entreprise>
+
+<section class="page-title-section overlay"
+    style="background-image: url('../../assets/images/backgrounds/page-title.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Gestion
+                            Des Employés</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary "></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+
+    <div class="container page-container" id="main-container">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="p-xs">
+                <!--  <div class="pull-left m-r-md">
+                <i class="fa fa-globe text-navy mid-icon"></i>
+            </div>-->
+                <h3>Liste des Employés</h3>
+
+                <div style="float: right;margin-top: -40px;" class="search">
+                    <input class="search__input" type="text" name="" (ngModelChange)="searchEmployee(key.value)"
+                        #key="ngModel" ngModel name="key" id="searchName" placeholder="Search" />
+                    <button class="fa fa-search search__button"></button>
+                </div>
+            </div>
+
+        </div><br><br>
+        <div class="row gutters ">
+
+
+            <div *ngFor="let c of clients" class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12">
+                <figure class="user-card teal">
+                    <figcaption>
+
+
+                        <img *ngIf="c.fileName===null" class="profile" src="../../../../assets/images/inconnue.jpg">
+                        <img *ngIf="c.fileName!==null" class="profile"
+                            src="{{this.serviceAdmin.host+'/api/ImgClients/'+c.cin}}" alt="About the image">
+
+
+                        <h5>{{c.prenom}} {{c.username}}</h5>
+                        <h6></h6>
+                        <i class="fa fa-map-marker" aria-hidden="true">&nbsp;{{c.adresse}}</i>
+                        <ul class="contacts">
+                            <li>
+                                <i class="fa fa-envelope" aria-hidden="true">&nbsp;<a href="mailto:{{c.email}}">
+                                        {{ c.email}}
+                                    </a></i>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone" aria-hidden="true">&nbsp; <span>
+                                        +216 {{ c.tel}}
+                                    </span></i>
+                            </li>
+                        </ul>
+                        <div style="float: right;" class="clearfix">
+
+                            <a (click)="onOpenModal(c,'details')" class="text-primary" data-toggle="tooltip" title=""
+                                data-original-title="view"><i class="far fa-eye"></i></a>
+
+                            &nbsp;
+                            <a (click)="onOpenModal(c,'delete')" class="text-danger" data-toggle="tooltip" title=""
+                                data-original-title="Delete"><i class="fa fa-archive"></i></a>
+
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="updateClient" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier {{editClient?.username}} </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #editForm="ngForm">
+
+                        <div class="form-group">
+                            <label for="cin">Cin</label>
+                            <input type="number" ngModel="{{editClient?.cin}}" name="cin" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" ngModel="{{editClient?.username}}" name="username" class="form-control"
+                                aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="capacite">Prénom</label>
+                            <input type="text" ngModel="{{editClient?.prenom}}" name="prenom" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" ngModel="{{editClient?.email}}" name="email" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse">Adresse</label>
+                            <input type="text" ngModel="{{editClient?.adresse}}" name="adresse" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tel">Tel</label>
+                            <input type="number" ngModel="{{editClient?.tel}}" name="tel" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="niveau">Niveau</label>
+                            <input type="text" ngModel="{{editClient?.niveau}}" name="niveau" class="form-control">
+                        </div>
+
+                        <div class="form-group" hidden>
+                            <label for="entreprise">entreprise</label>
+                            <input type="text" ngModel="{{editClient?.entreprise.rcs}}" name="entreprise"
+                                class="form-control">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="text" ngModel="{{editClient?.password}}" name="password" class="form-control">
+                        </div>
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Fermer</button>
+                            <button (click)="onUpdateClient(editClient?.cin,editForm.value)" data-dismiss="modal"
+                                class="btn btn-success">Enregistre</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="deleteClient" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModelLabel">Archiver Un Employé</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> Êtes-vous sûr de vouloir archiver l'employé {{deleteClient?.username}} {{deleteClient?.prenom}}  ?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                        <button (click)="onDeleteClient(deleteClient?.cin)" class="btn btn-danger"
+                            data-dismiss="modal">oui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailsClient" tabindex="-1" role="dialog" aria-labelledby="addFormateurModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog-scrollable modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFormateurModalLabel">Details Employé</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label for="cin">Cin</label>
+                            <input type="text" name="cin" class="form-control" id="cin" ngModel="{{detailsClient?.cin}}"
+                                disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Nom</label>
+                            <input type="text" name="username" class="form-control" id="username"
+                                ngModel="{{detailsClient?.username}}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" name="prenom" class="form-control" id="prenom"
+                                ngModel="{{detailsClient?.prenom}}" disabled>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" class="form-control" id="email"
+                                ngModel="{{detailsClient?.email}}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse">Adresse</label>
+                            <input type="text" name="adresse" class="form-control" id="adresse"
+                                ngModel="{{detailsClient?.adresse}}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tel">Tél</label>
+                            <input type="number" name="tel" class="form-control" id="tel"
+                                ngModel="{{detailsClient?.tel}}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="niveau">Niveau</label>
+                            <input type="text" name="niveau" class="form-control" id="niveau"
+                                ngModel="{{detailsClient?.niveau}}" disabled>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<app-footer></app-footer>

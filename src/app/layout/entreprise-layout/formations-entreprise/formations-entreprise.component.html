@@ -1,0 +1,90 @@
+<app-entreprise></app-entreprise>
+<!-- page title -->
+<section class="page-title-section overlay" style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline custom-breadcrumb">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Nos Formations</a></li>
+          <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+        </ul>
+
+        <form style="float: right;margin-top:-40px"  class="search ">
+          <input type="text" placeholder="Search here..." name="" 
+          (ngModelChange)="searchFormation(key.value)" #key="ngModel" ngModel name="key" id="searchName">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- courses -->
+<section class="section">
+  <div class="container" id="main-container">
+    <div class="row">
+      <!-- event -->
+  
+      <!-- event -->
+      <div class="col-lg-4 col-sm-6 mb-5" *ngFor = "let formation of formations" >
+        <div class="card border-0 rounded-0 hover-shadow">
+          <div class="card-img position-relative">
+            <img class="card-img-top rounded-0" src="../../../../assets/images/events/event-3.jpg" alt="event thumb">
+           
+          </div>
+          <div class="card-body">
+            <!-- location -->
+          
+            <p><i class="ti-calendar mr-1 text-color"></i> {{formation.datedeb}}  &nbsp;<i class="ti-arrow-right mr-1 text-light" aria-hidden="true"></i>  &nbsp;<i class="ti-calendar mr-1 text-color"></i> {{formation.datefin}}  </p>
+           
+            <a href="event-single.html">
+              <h4  class="ti-flickr text-dark mr-2 card-title"> {{formation.libelle}} </h4>
+            </a>
+            <p><i class="ti-write text-primary mr-2 "></i> {{formation.description}}</p>
+            <h4><i class="ti-money text-primary mr-2"></i>{{formation.prix}}</h4>
+            <!--<a href="course-single.html" class="btn btn-info btn-sm">Apply now</a>-->
+
+            <h5 *ngIf="formation.datedeb<this.myDate" class="text-danger text-center ">NB: Cette formation est achevée</h5>
+            <button *ngIf="formation.datedeb>=this.myDate" (click)="onOpenModal(formation, 'demande')" class="btn btn-info btn-lg" >Obtenir un Voucher</button>
+          </div>
+        </div>
+      </div>
+      <!-- event -->
+ 
+      <!-- event -->
+
+
+
+      <div class="modal fade" id="demandeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Demande de voucher pour la formation {{demandeFormation?.libelle}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+              <span aria-hidden="true">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" autocomplete="off">
+                    <div class="form-group">
+                       <label for="nbPlace">Nombre de Places </label>
+                       <input type="number" ngModel name="nbPlace" class="form-control" id="nbPlace" required>
+                    </div>
+                    <span style="color: brown;">Voucher Valable 1 ans*</span>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">non</button>
+                        <button type="submit"  [disabled]="addForm.invalid" (click)="demande(demandeFormation.id,addForm);addNotification(demandeFormation?.libelle)" data-dismiss="modal" class="btn btn-primary">Confirmer</button>
+                      </div>
+              </form>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+  
+
+    </div>
+  </div>
+</section>
+<!-- /courses -->
+<app-footer></app-footer>

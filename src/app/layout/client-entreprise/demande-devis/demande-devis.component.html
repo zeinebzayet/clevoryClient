@@ -1,0 +1,155 @@
+<app-client-ese></app-client-ese>
+<section class="page-title-section overlay"
+    style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Liste des
+                            demandes de devis</a>
+                    </li>
+                    <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /page title -->
+
+<!-- courses -->
+<section class="section">
+    <div class="container" id="main-container">
+        <div class="row">
+            <!-- event -->
+
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Mes demandes</h4>
+
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive " id="proTeamScroll" tabindex="2"
+                                    style="height: 400px;overflow: scroll;">
+                                    <table class="table table-striped mb-0">
+                                        <thead>
+                                            <tr>
+
+                                                <th scope="col">Formations</th>
+                                                <th scope="col">Date de déroulement</th>
+                                                <th scope="col">Date de la demande</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let d of demandes">
+
+                                                <td>
+                                                    <h6 class="mb-0 font-13">{{d.formation.libelle}}</h6>
+                                                    <!--<p class="m-0 font-12">
+                                              Assigned to<span class="col-green font-weight-bold"> Airi Satou</span>
+                                          </p>-->
+                                                </td>
+                                                <td>{{d.formation.datedeb}} au {{d.formation.datefin}}</td>
+
+                                                <td>
+                                                    <div class="badge-outline col-red">{{d.date}}</div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <div *ngIf="d.etat==='En Attente'" class="text-info">{{d.etat}}
+                                                    </div>
+                                                    <div *ngIf="d.etat==='Acceptée'" class="text-success">
+                                                        {{d.etat}}&nbsp; <a (click)="onOpenModal(d,'details')"
+                                                            class="text-primary" data-toggle="tooltip" title=""
+                                                            data-original-title="Détails"><i
+                                                                class="ti-eye text-dark"></i></a></div>
+                                                    <div *ngIf="d.etat==='Refusée'" class="text-danger">{{d.etat}}</div>
+
+
+
+
+                                                    <!--<span class="label label-success">Success</span>
+                                          <span class="label label-danger">Danger</span>
+                                          <span class="label label-info">Info</span>-->
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="modal fade" id="detailsCours" tabindex="-1" role="dialog"
+                aria-labelledby="formationEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateFormationModalLabel">Détails Formation </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+
+
+
+                                <div class="form-group">
+                                    <label for="libelle">Libelle</label>
+                                    <input type="text" name="libelle" class="form-control" id="libelle"
+                                        ngModel="{{details?.formation.libelle}}" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="supportcours">Support de Cours</label>
+                                    <input type="text" name="supportcours" #nameInput5 class="form-control"
+                                        id="supportcours" ngModel="{{details?.formation.support_cours}}" disabled>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="formateur">Formateur</label>
+                                    <input type="text" name="formateur" class="form-control" id="formateur"
+                                        ngModel="{{details?.formation.formateur.username}}" disabled>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="salle">Salle</label>
+                                    <input type="text" name="salle" class="form-control" id="salle"
+                                        ngModel="{{details?.formation.salle.nom}}" disabled>
+                                </div>
+
+                                <div class="modal-footer">
+
+                                    <button type="button" id="" data-dismiss="modal"
+                                        class="btn btn-secondary ">Cancel</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+    </div>
+</section>
+                                <!--****************footer**************-->
+<app-footer></app-footer>
