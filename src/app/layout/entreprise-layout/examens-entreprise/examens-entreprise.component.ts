@@ -4,6 +4,7 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { examens } from 'src/app/examens/examens.component';
 import { ClientService } from '../../client-layout/client.service';
+import { AdminEseService } from '../admin-ese.service';
 
 import { AdminEntreprise, demande, Formations, Notification } from '../formations-entreprise/formations-entreprise.component';
 import { ExamenEseService } from './examen-ese.service';
@@ -24,7 +25,7 @@ export class ExamensEntrepriseComponent implements OnInit {
   NotificationForm =new FormGroup({
     content: new FormControl()
 });
-  constructor(private examensService: ExamenEseService,private webSocketService:ClientService,private toastr: ToastrService) { }
+  constructor(private examensService: ExamenEseService,private webSocketService:AdminEseService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getExamens();
@@ -46,8 +47,8 @@ export class ExamensEntrepriseComponent implements OnInit {
 
     this.message="L'admin "+localStorage.getItem("username")+" de l'entreprise "+localStorage.getItem("nomEse")+" a demandé un voucher pour l'examen "+libelle;
     this.NotificationForm.get('content')?.setValue(this.message);
-    this.webSocketService.addNotif(this.NotificationForm.value).subscribe(
-      (response: Notification) => {
+    this.webSocketService.addNotifAd(this.NotificationForm.value).subscribe(
+      (response: Notification[]) => {
         console.log(response);
         this.NotifyAdmin()
   

@@ -1,0 +1,81 @@
+<app-entreprise></app-entreprise>
+<section class="page-title-section overlay"
+  style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Demande Voucher Examen</a>
+          </li>
+          <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+        </ul>
+      
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<section class="section">
+    <div class="container" id="main-container">
+      <div class="row">
+        <!-- event -->
+        <div class="tr-job-posted section-padding">
+          <div class="container">
+              <div class="job-tab text-center">
+                  <div class="tab-content text-left" >
+                      <div role="tabpanel" class="tab-pane fade active show" id="hot-jobs"  *ngFor="let d of demande">
+                          <div class="row">
+                              <div class="col-md-6 col-lg-3" >
+                                  <div class="job-item" >
+                                      <div class="item-overlay" >
+                                          <div class="job-info" >
+                                              <a class="btn btn-primary">{{d.etat}}</a>
+                                              <span class="tr-title">
+                                                  <a >{{d.examen.libelle}}</a>
+                                                  <span><a > {{d.examen.code}}</a></span>
+                                              </span>
+                                              <ul class="tr-list job-meta">
+
+                                                  <li><i class="fa fa-briefcase" aria-hidden="true"></i>Constructeur {{d.examen.constructeur}}</li>
+                                                  <li><i class="fa fa-times" aria-hidden="true"></i>Durée {{d.examen.duree}} </li>
+                                              </ul>
+                                             
+                                          </div>										
+                                      </div>
+                                      <div class="job-info"  >
+                                         
+                                          <span class="tr-title">
+                                              <a >{{d.examen.libelle}}</a>
+                                              <span><a >Technologie: {{d.examen.technologie}}</a></span>
+                                          </span>
+                                          <ul class="tr-list job-meta">
+                                             
+                                              <li>{{d.examen.description}} </li>
+                                              <li><span><i class="fa fa-map-signs" aria-hidden="true"></i></span>Nombre Place:{{d.nbPlace}}</li>
+                                          </ul>
+                                          <div class="time" *ngIf="d.etat==='Refusée'">
+                                              <a ><span>{{d.etat}}</span></a>
+                                              <span class="pull-right">envoyer le {{d.date}}</span>
+                                          </div>	
+                                          <div class="time" *ngIf="d.etat==='En Attente'">
+                                              <a ><span class="part-time">{{d.etat}}</span></a>
+                                              <span class="pull-right">envoyer le {{d.date}}</span>
+                                          </div>
+                                          <div class="time" *ngIf="d.etat==='Acceptée'">
+                                              <a ><span style="background-color: green;">{{d.etat}}</span></a>
+                                              <span class="pull-right">envoyer le {{d.date}}</span>
+                                          </div>																				
+                                      </div>
+                                  </div>
+                              </div>
+                          </div><!-- /.row -->
+                      </div><!-- /.tab-pane -->
+                  </div>				
+              </div><!-- /.job-tab -->			
+          </div><!-- /.container -->
+      </div>
+  </div>
+  </div>
+  </section>
+  <app-footer></app-footer>

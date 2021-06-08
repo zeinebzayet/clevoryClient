@@ -29,7 +29,7 @@
     <!-- course item -->
     <div class="col-lg-4 col-sm-6 mb-5" *ngFor = "let examen of examens" >
       <div class="card p-0 border-primary rounded-0 hover-shadow">
-        <img class="img-thumbnail" src = "{{this.examensService.host+'/api/Imgexamens/'+examen.id}}"  alt="course thumb">
+        <img style="width:250px;height:250px;text-align: center;" src = "{{this.examensService.host+'/api/Imgexamens/'+examen.id}}"  alt="course thumb">
         <div class="card-body">
           <ul class="list-inline mb-2">
             <li class="list-inline-item">{{examen.specialite}}</li>

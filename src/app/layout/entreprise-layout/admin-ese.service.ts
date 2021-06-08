@@ -7,6 +7,7 @@ import { AssignerVoucher, client_entreprise, Voucher } from './employees/employe
 import { AdminEntreprise, Entreprise, Notification } from './formations-entreprise/formations-entreprise.component';
 import * as Stomp from 'stompjs';
 import * as SockJs from 'sockjs-client';
+import { DemandeVoucher } from './entreprise-layout.component';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,9 @@ export class AdminEseService {
   private baseUrlNbE= "http://localhost:8090/api/voucher";
 
   private baseUrlEmp= "http://localhost:8090/api/entreprises/"+localStorage.getItem("rcs")+"/vouchers";
+
+  private baseUrlAdminNotif ="http://localhost:8090/admin/notify";
+  private baseUrlDemandeVoucher="http://localhost:8090/api/demande/entreprise/"+localStorage.getItem("rcs");
   constructor(private httpClient:HttpClient) { }
 
   connect() {
@@ -52,14 +56,17 @@ export class AdminEseService {
 }
 notifyAdmin():Observable<any>
 {
-  return this.httpClient.get("http://localhost:8090/notifyAdmin/"+9618888)
+  return this.httpClient.get("http://localhost:8090/notifyAdmin")
 }
 
-addNotif(notification:Notification):Observable<Notification>
+/*addNotif(notification:Notification):Observable<Notification>
 {
   return this.httpClient.post<Notification>(`${this.baseUrlPersonne}/${this.baseUrlNotification}`,notification);
+}*/
+addNotifAd(notification:Notification):Observable<Notification[]>
+{
+  return this.httpClient.post<Notification[]>(`${this.baseUrlAdminNotif}`,notification);
 }
-
 getNbNotif(): Observable<number> {
   return this.httpClient.get<number>(`${this.baseUrlNotifs}`);
 }
@@ -178,5 +185,11 @@ addNotifUser(idpersonne:number,notification:Notification):Observable<Notificatio
   }
 
 
-  
+  getDemandeFormation(): Observable<DemandeVoucher[]>{
+    return this.httpClient.get<DemandeVoucher[]>(`${this.baseUrlDemandeVoucher}/formation`) ;
+  }
+
+  getDemandeExamen(): Observable<DemandeVoucher[]>{
+    return this.httpClient.get<DemandeVoucher[]>(`${this.baseUrlDemandeVoucher}/examen`) ;
+  }
 }

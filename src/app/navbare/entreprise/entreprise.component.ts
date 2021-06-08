@@ -26,7 +26,7 @@ export class EntrepriseComponent implements OnInit {
       let stompClient = this.webSocketService.connect();
       stompClient.connect({}, frame => {
 
-        stompClient.subscribe('/topic/user/'+localStorage.getItem("cin"), notifications => {
+        stompClient.subscribe('/topic/adminentreprise/'+localStorage.getItem("cin"), notifications => {
           var x=JSON.parse(notifications.body)
           this.notification_list.unshift(x.content)
           this.notification_number++

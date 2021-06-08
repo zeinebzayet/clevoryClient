@@ -44,8 +44,8 @@ public examens:any
 
     this.message="Le client "+localStorage.getItem("username")+" "+localStorage.getItem("prenom")+" veut s'inscrire à l'examen "+libelle;
     this.NotificationForm.get('content')?.setValue(this.message);
-    this.webSocketService.addNotif(this.NotificationForm.value).subscribe(
-      (response: Notification) => {
+    this.webSocketService.addNotifAd(this.NotificationForm.value).subscribe(
+      (response: Notification[]) => {
         console.log(response);
         this.NotifyAdmin()
         this.ngOnInit()

@@ -16,8 +16,8 @@ export class ClientEseService {
   private baseUrlNotification ="notify";
   host :string = "http://localhost:8090";
   public dataForm!:  FormGroup; 
-  private baseUrlPersonne ="http://localhost:8090/personne/"+9618888;
-  private baseUrlPersonneEse ="http://localhost:8090/personne/"+23298445;
+  //private baseUrlPersonne ="http://localhost:8090/personne/"+9618888;
+  //private baseUrlPersonneEse ="http://localhost:8090/personne/"+23298445;
   private baseUrlClient = "http://localhost:8090/api/clientP/"+localStorage.getItem("cin");
 
   private baseUrlNotif = "http://localhost:8090/notif/"+localStorage.getItem("cin");
@@ -33,6 +33,10 @@ export class ClientEseService {
  
   private baseUrlFormation = "http://localhost:8090/api/formation";
   private baseUrlDemandeFx = "http://localhost:8090/api/demandesE/client/"+localStorage.getItem("cin")+"/formation";
+
+  private baseUrlAdmin ="http://localhost:8090/admin/notify";
+
+  private baseUrlAdminEse ="http://localhost:8090/adminentreprises/notify";
   constructor(private httpClient:HttpClient) { }
   
   connect() {
@@ -42,26 +46,37 @@ export class ClientEseService {
 
     return stompClient;
 }
+
 notifyAdmin():Observable<any>
 {
-  return this.httpClient.get("http://localhost:8090/notifyAdmin/"+9618888)
+  return this.httpClient.get("http://localhost:8090/notifyAdmin")
 }
 
 
 notifyAdminEse():Observable<any>
 {
-  return this.httpClient.get("http://localhost:8090/notifyAdmin/"+23298445)
-}
-
-addNotif(notification:Notification):Observable<Notification>
-{
-  return this.httpClient.post<Notification>(`${this.baseUrlPersonne}/${this.baseUrlNotification}`,notification);
+  return this.httpClient.get("http://localhost:8090/notifyAdminEse")
 }
 
 addNotifEse(notification:Notification):Observable<Notification>
 {
-  return this.httpClient.post<Notification>(`${this.baseUrlPersonneEse}/${this.baseUrlNotification}`,notification);
+  return this.httpClient.post<Notification>(`${this.baseUrlAdminEse}`,notification);
 }
+
+/*addNotif(notification:Notification):Observable<Notification>
+{
+  return this.httpClient.post<Notification>(`${this.baseUrlPersonne}/${this.baseUrlNotification}`,notification);
+}*/
+
+addNotifAd(notification:Notification):Observable<Notification[]>
+{
+  return this.httpClient.post<Notification[]>(`${this.baseUrlAdmin}`,notification);
+}
+
+/*addNotifEse(notification:Notification):Observable<Notification>
+{
+  return this.httpClient.post<Notification>(`${this.baseUrlPersonneEse}/${this.baseUrlNotification}`,notification);
+}*/
 
 getNbNotif(): Observable<number> {
   return this.httpClient.get<number>(`${this.baseUrlNotifs}`);

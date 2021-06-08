@@ -55,6 +55,8 @@ import { DetailsFormationComponent } from './layout/formateur-layout/details-for
 import { FooterComponent } from './footer/footer.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import{DemandeEmployeeComponent} from './layout/entreprise-layout/demande-employee/demande-employee.component';
+import { DemandeVoucherExamenComponent } from './layout/entreprise-layout/demande-voucher-examen/demande-voucher-examen.component';
+import { DemandevoucherComponent } from './layout/entreprise-layout/demandevoucher/demandevoucher.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -111,6 +113,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DetailsFormationComponent,
     FooterComponent,
     DemandeEmployeeComponent,
+    DemandeVoucherExamenComponent,
+    DemandevoucherComponent,
   ],
   imports: [
     BrowserModule,

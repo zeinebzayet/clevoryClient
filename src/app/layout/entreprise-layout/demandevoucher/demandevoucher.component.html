@@ -1,0 +1,81 @@
+<app-entreprise></app-entreprise>
+<section class="page-title-section overlay"
+  style="background-image: url('../../../../assets/images/backgrounds/page-title.jpg');">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Demande Voucher Formation</a>
+          </li>
+          <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+        </ul>
+      
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- courses -->
+<section class="section">
+  <div class="container" id="main-container">
+    <div class="row">
+      <!-- event -->
+      <div class="tr-job-posted section-padding">
+        <div class="container">
+            <div class="job-tab text-center">
+                <div class="tab-content text-left" >
+                    <div role="tabpanel" class="tab-pane fade active show" id="hot-jobs" >
+                        <div class="row" >
+                            <div class="col-md-6 col-lg-3 " >
+                                <div class="job-item" *ngFor="let d of demande"   >
+                                    <div class="item-overlay" >
+                                        <div class="job-info" >
+                                            <a  class="btn btn-primary">{{d.etat}}</a>
+                                            <span class="tr-title">
+                                                <a >{{d.formation.libelle}}</a>
+                                                <span><a></a></span>
+                                            </span>
+                                             <ul class="tr-list job-meta">
+                                                <li><i class="fa fa-briefcase" aria-hidden="true"></i>Constructeur {{d.formation.constructeur}}</li>
+                                                <li><i class="fa fa-user" aria-hidden="true"></i>Formateur {{d.formation.formateur.username}} {{d.formation.formateur.prenom}}</li>
+                                            </ul>
+                                           
+                                        </div>										
+                                    </div>
+                                    <div class="job-info" >
+                                       
+                                        <span class="tr-title">
+                                            <a >{{d.formation.libelle}}</a>
+                                            <span><a >Technologie: {{d.formation.technologie}}</a></span>
+                                        </span>
+                                        <ul class="tr-list job-meta">
+                                           
+                                            <li><span><i class="fa fa-calendar" aria-hidden="true"></i></span>{{d.formation.datedeb}} - {{d.formation.datefin}} </li>
+                                            <li><span><i class="fa fa-map-signs" aria-hidden="true"></i></span>Nombre Place:{{d.nbPlace}}</li>
+                                        </ul>
+                                        <div class="time" *ngIf="d.etat==='Refusée'">
+                                            <a ><span>{{d.etat}}</span></a>
+                                            <span class="pull-right">envoyer le {{d.date}}</span>
+                                        </div>	
+                                        <div class="time" *ngIf="d.etat==='En Attente'">
+                                            <a ><span class="part-time">{{d.etat}}</span></a>
+                                            <span class="pull-right">envoyer le {{d.date}}</span>
+                                        </div>
+                                        <div class="time" *ngIf="d.etat==='Acceptée'">
+                                            <a ><span style="color: forestgreen;">{{d.etat}}</span></a>
+                                            <span class="pull-right">envoyer le {{d.date}}</span>
+                                        </div>																				
+                                    </div>
+                                </div>
+                            </div><br>
+                        </div><!-- /.row -->
+                    </div><!-- /.tab-pane -->
+                </div>				
+            </div><!-- /.job-tab -->			
+        </div><!-- /.container -->
+    </div>
+</div>
+</div>
+</section>
+<app-footer></app-footer>

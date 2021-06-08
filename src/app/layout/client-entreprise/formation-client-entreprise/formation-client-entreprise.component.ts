@@ -42,8 +42,8 @@ export class FormationClientEntrepriseComponent implements OnInit {
 
     this.message = "Le client " + localStorage.getItem("username") + " " + localStorage.getItem("prenom") + " a demandé une devis pour la formation " + libelle;
     this.NotificationForm.get('content')?.setValue(this.message);
-    this.webSocketService.addNotif(this.NotificationForm.value).subscribe(
-      (response: Notification) => {
+    this.webSocketService.addNotifAd(this.NotificationForm.value).subscribe(
+      (response: Notification[]) => {
         console.log(response);
         this.NotifyAdmin();
         this.ngOnInit()

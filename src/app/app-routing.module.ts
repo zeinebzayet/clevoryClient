@@ -21,6 +21,8 @@ import { FormationsClientComponent } from './layout/client-layout/formations-cli
 import { ProfilClientComponent } from './layout/client-layout/profil-client/profil-client.component';
 import { ArchiveClientComponent } from './layout/entreprise-layout/archive-client/archive-client.component';
 import { DemandeEmployeeComponent } from './layout/entreprise-layout/demande-employee/demande-employee.component';
+import { DemandeVoucherExamenComponent } from './layout/entreprise-layout/demande-voucher-examen/demande-voucher-examen.component';
+import { DemandevoucherComponent } from './layout/entreprise-layout/demandevoucher/demandevoucher.component';
 import { EmployeesComponent } from './layout/entreprise-layout/employees/employees.component';
 import { EntrepriseLayoutComponent } from './layout/entreprise-layout/entreprise-layout.component';
 import { ExamensEntrepriseComponent } from './layout/entreprise-layout/examens-entreprise/examens-entreprise.component';
@@ -66,6 +68,16 @@ canActivate:[AuthGuardService]
 },
 {path:'client',
 component:ClientLayoutComponent,
+canActivate:[AuthGuardService]
+},
+
+{path:'demandeFormationAdmin',
+component:DemandevoucherComponent,
+canActivate:[AuthGuardService]
+},
+
+{path:'demandExamenAdmin',
+component:DemandeVoucherExamenComponent,
 canActivate:[AuthGuardService]
 },
 

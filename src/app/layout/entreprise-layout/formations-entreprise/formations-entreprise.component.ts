@@ -87,8 +87,8 @@ export class FormationsEntrepriseComponent implements OnInit {
 
     this.message="L'admin "+localStorage.getItem("username")+" de l'entreprise "+localStorage.getItem("nomEse")+" a demandé un voucher pour la formation "+libelle;
     this.NotificationForm.get('content')?.setValue(this.message);
-    this.webSocketService.addNotif(this.NotificationForm.value).subscribe(
-      (response: Notification) => {
+    this.webSocketService.addNotifAd(this.NotificationForm.value).subscribe(
+      (response: Notification[]) => {
         console.log(response);
         this.NotifyAdmin()
   
