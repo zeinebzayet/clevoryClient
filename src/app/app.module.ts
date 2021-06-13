@@ -58,6 +58,9 @@ import{DemandeEmployeeComponent} from './layout/entreprise-layout/demande-employ
 import { DemandeVoucherExamenComponent } from './layout/entreprise-layout/demande-voucher-examen/demande-voucher-examen.component';
 import { DemandevoucherComponent } from './layout/entreprise-layout/demandevoucher/demandevoucher.component';
 
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -128,7 +131,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ShowHidePasswordModule,
     PDFExportModule,
     BrowserAnimationsModule,
-    PDFExportModule
+    PDFExportModule,
+
+    DateInputsModule
 
   ],
   providers: [],

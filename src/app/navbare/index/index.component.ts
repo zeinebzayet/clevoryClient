@@ -170,7 +170,10 @@ onSubmit2(f: NgForm): void {
           localStorage.setItem("cin",data.principal.cin)
           localStorage.setItem("username",data.principal.username)
           localStorage.setItem("prenom",data.principal.prenom)
+         if(data.principal.entreprise!=null && data.principal.entreprise.rcs!=null){
           localStorage.setItem("entreprise",data.principal.entreprise)
+          localStorage.setItem("rcs",data.principal.entreprise.rcs)
+         }
             this.router.navigate(['./clientEse']);
             
             console.log(data.principal);

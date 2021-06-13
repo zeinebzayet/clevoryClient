@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
@@ -215,11 +216,13 @@ export class examens {
   prix!:number;
   specialite!:string;
   fileName!:string;
+  duree!:number;
 }
 
 export class inscription{
   examen!:examens;
   client!:ClientPassager;
   date!:Date;
+  time!:any;
   etat!:string;
 }

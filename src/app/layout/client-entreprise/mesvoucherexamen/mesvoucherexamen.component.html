@@ -1,148 +1,247 @@
 <app-client-ese></app-client-ese>
 
-<section class="page-title-section overlay" style="background-image: url('../../assets/images/backgrounds/page-title.jpg')">
+<section class="page-title-section overlay"
+    style="background-image: url('../../assets/images/backgrounds/page-title.jpg')">
     <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <ul class="list-inline custom-breadcrumb">
-            <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Mes Voucher Formation</a></li>
-            <li class="list-inline-item text-white h3 font-secondary "></li>
-          </ul>
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Mes
+                            Vouchers Examen</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary "></li>
+                </ul>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
+</section>
 
 
-  <section class="section">
-    <div class="container" id="main-container" >
-    
-    <div class="row">
-        <div class="col-lg-12 ">
-            <div class="wrapper wrapper-content animated fadeInRight">
+<section class="section">
+    <div class="container" id="main-container">
 
-                <div class="ibox-content m-b-sm border-bottom">
-                    <div class="p-xs">
-                        <!--  <div class="pull-left m-r-md">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="wrapper wrapper-content animated fadeInRight">
+
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <div class="p-xs">
+                            <!--  <div class="pull-left m-r-md">
                         <i class="fa fa-globe text-navy mid-icon"></i>
                     </div>-->
-                        <h3>Liste des Vouchers Examen</h3>
+                            <h3>Liste des Vouchers Examen</h3>
 
-                        <div style="float: right;margin-top: -40px;" class="search">
-                            <input class="search__input" type="text" name=""
-                                (ngModelChange)="searchExamen(key.value)" #key="ngModel" ngModel name="key"
-                                id="searchName" placeholder="Search" />
-                            <button class="fa fa-search search__button"></button>
+                            <div style="float: right;margin-top: -40px;" class="search">
+                                <input class="search__input" type="text" name=""
+                                    (ngModelChange)="searchExamen(key.value)" #key="ngModel" ngModel name="key"
+                                    id="searchName" placeholder="Search" />
+                                <button class="fa fa-search search__button"></button>
+                            </div>
                         </div>
+
                     </div>
 
-                </div>
 
 
+                    <div class="ibox-content forum-container">
 
-                <div class="ibox-content forum-container">
+                        <div class="forum-title">
+                            <div class="pull-right forum-desc">
 
-                    <div class="forum-title">
-                        <div class="pull-right forum-desc">
-
+                            </div>
+                            <h3>Examens</h3>
                         </div>
-                        <h3>Examens</h3>
-                    </div>
 
-                    <div *ngFor="let v of voucherF " class="forum-item active">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="forum-icon">
-                                  <!-- <i class="fa fa-calendar"></i>--> 
+                        <div *ngFor="let v of voucherF " class="forum-item active">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="forum-icon">
+                                        <!-- <i class="fa fa-calendar"></i>-->
 
-                                  <img *ngIf="v.demandeVoucher.examen.fileName===null" class="img-thumbnail"
-                                  src="../../../../assets/images/inconnue.jpg">
-                                  <img *ngIf="v.demandeVoucher.examen.fileName!==null" class="img-thumbnail"
-                                               src = "{{this.profilService.host+'/api/Imgexamens/'+v.demandeVoucher.examen.id}}" 
-                                            
-                                              alt="About the image">
+                                        <img *ngIf="v.demandeVoucher.examen.fileName===null" class="img-thumbnail"
+                                            src="../../../../assets/images/inconnue.jpg">
+                                        <img *ngIf="v.demandeVoucher.examen.fileName!==null" class="img-thumbnail"
+                                            src="{{this.clientService.host+'/api/Imgexamens/'+v.demandeVoucher.examen.id}}"
+                                            alt="About the image">
+                                    </div>
+                                    <a (click)="onOpenModal(v,'detailsF')"
+                                        class="forum-item-title">{{v.demandeVoucher.examen.libelle}}</a>
+                                    <div class="forum-sub-title">{{v.demandeVoucher.examen.description}} </div>
                                 </div>
-                                <a (click)="onOpenModal(v,'detailsF')"
-                                    class="forum-item-title">{{v.demandeVoucher.examen.libelle}}</a>
-                                <div class="forum-sub-title">{{v.demandeVoucher.examen.description}} </div>
-                            </div>
-                            <div class="col-md-2 forum-info">
-                                <span class="views-number">
-                                    {{v.code}}
-                                </span>
-                                <div>
-                                    <small>Code Voucher</small>
-                                </div>
-                            </div>
-                       
-                            <div class="col-md-1 forum-info">
-                                <a (click)="onOpenModal(v,'details')" class="table-link ">
-                                    <span class="fa-stack">
-
-                                        <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                <div class="col-md-2 forum-info">
+                                    <span class="views-number">
+                                        {{v.code}}
                                     </span>
-                                </a>
-                                <div>
+                                    <div>
+                                        <small>Code Voucher</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 forum-info">
+                                    <a (click)="onOpenModal(v,'details')" class="table-link ">
+                                        <span class="fa-stack">
+
+                                            <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div  class="col-md-1 forum-info">
+
+                                    <button (click)="onOpenModal(v,'insc')" class="btn btn-xs btn-primary mb-3 ">
+                                        Utiliser
+                                    </button>
 
                                 </div>
+
+                              <!-- <div  *ngIf="getInscriptions(v.demandeVoucher.examen.id)"  class="col-md-1 forum-info">
+
+                                    <p  class="text-danger" >
+                                        voucher expiré
+                                    </p>
+
+                                </div>-->
+
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
-</div>
-</div>
+    </div>
 
 
-                              <div class="modal fade" id="detailsCours" tabindex="-1" role="dialog"
-                                aria-labelledby="addFormateurModalLabel" aria-hidden="true">
-                                <div class="modal-dialog-scrollable modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="addFormateurModalLabel">Details Examen</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-          
+    <div class="modal fade" id="detailsCours" tabindex="-1" role="dialog" aria-labelledby="addFormateurModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog-scrollable modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFormateurModalLabel">Détails Examen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
 
-          
-                                                <div class="form-group">
-                                                   <label for="libelle">Libelle</label>
-                                                   <input type="text" name="libelle" class="form-control" id="libelle" 
-                                                      ngModel="{{details?.demandeVoucher.examen.libelle}}" disabled>
-                                                </div>
-                        
-                        
-                                                <div class="form-group">
-                                                    <label for="formateur">Niveau</label>
-                                                    <input type="text" name="formateur" class="form-control" id="formateur" ngModel="{{details?.demandeVoucher.examen.niveau}}" disabled>
-                                                 </div>
-                        
-                                                 <div class="form-group">
-                                                    <label for="salle">Description</label>
-                                                    <textarea type="text" name="salle" class="form-control" id="salle" ngModel="{{details?.demandeVoucher.examen.description}}" disabled></textarea>
-                                                 </div>
+
+
+                        <div class="form-group">
+                            <label for="libelle">Libelle</label>
+                            <input type="text" name="libelle" class="form-control" id="libelle"
+                                ngModel="{{details?.demandeVoucher.examen.libelle}}" disabled>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="formateur">Niveau</label>
+                            <input type="text" name="formateur" class="form-control" id="formateur"
+                                ngModel="{{details?.demandeVoucher.examen.niveau}}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="salle">Description</label>
+                            <textarea type="text" name="salle" class="form-control" id="salle"
+                                ngModel="{{details?.demandeVoucher.examen.description}}" disabled></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary ">Cancel</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="inscrip" tabindex="-1" role="dialog" aria-labelledby="addFormateurModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog-scrollable modal-dialog" role="document">
+            <div class="modal-content ">
+                <div class="modal-body">
+                  <div class="card px-0 pt-4 ">
+                    
+                    <div class="row">
+                      <div class="col-md-12 mx-0">
+                        <form id="msform" name="form" [formGroup]="angForm" novalidate (ngSubmit)="demande(details?.demandeVoucher.examen.id);addNotification(details?.demandeVoucher.examen.libelle);addNotificationAdminEse(details?.demandeVoucher.examen.libelle,details?.code)" >
+                          <fieldset>
+            
+                              <div class="form-group">
+                                <label for="date">Date </label>
+                                <input type="date"  formControlName="date" #date  name="date" class="form-control" id="date" required>
+                                <p *ngFor="let validation of account_validation_messages.date">
+                                  <span style="color: red;" class="error-message" *ngIf="angForm.get('date').hasError(validation.type) && (angForm.get('date').dirty || angForm.get('date').touched)">{{validation.message}}</span></p>
+                               
               
-                                                <div class="modal-footer">
-                                                  
-                                                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary ">Cancel</button>
-                        
-                                                </div>
-                                             </form>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                            
+                            </div>
+                            <input (click)="getHeureDispo(date.value)"  type="button" name="next" class="next action-button" value="Suivant" />
+                          </fieldset>
+                          <fieldset> 
+                            <div class="form-group" >
+                              <label>Select l'heure</label>
+                              <select  class="form-control"   formControlName="time"    > 
+                                <option  *ngFor="let e of listHreure"    name="time"  selected> {{e}}</option>
+        
+                              </select>
+                           </div>
+                           
+                            <input type="button" name="previous" class="previous action-button-previous" value="Précédant" />
+                            <input  type="submit" name="next" class="next action-button" value="Suivant" />
+                          </fieldset>
+            
+                          <fieldset>
+                            <div class="form-card">
+                              <h2 class="fs-title text-center">Success !</h2> <br><br>
+                              <div class="row justify-content-center">
+                                <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png  " class="fit-image"> </div>
+                              </div> <br><br>
+                              <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                  <h5>You Have Successfully Signed Up</h5>
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </form>
+            
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabel">Alert</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span> 
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Vous avez déjà utilisé cette voucher !!!</p>
+      
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+               
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
 
 
 </section>
 
-                                <!--****************footer**************-->
+<!--****************footer**************-->
 <app-footer></app-footer>

@@ -1,6 +1,7 @@
+import { Time } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { examens, inscription } from 'src/app/examens/examens.component';
 import { ExamensService } from 'src/app/examens/examens.service';
 import { Notification } from '../../entreprise-layout/formations-entreprise/formations-entreprise.component';
@@ -22,10 +23,28 @@ public examens:any
   NotificationForm =new FormGroup({
     content: new FormControl()
 });
-  constructor(private clientService: ClientEseService,private examensService:ExamensService,private webSocketService:ClientEseService) { }
+  listHreure: any;
+
+  angForm =new FormGroup({
+    date: new FormControl(),
+    time: new FormControl()
+  
+    
+  });
+
+  account_validation_messages = {
+    'date': [
+      { type: 'required', message: 'date est obligatoire' },
+    ],
+    'time': [
+      { type: 'required', message: 'time est obligatoire' },
+    ]};
+
+  constructor(private clientService: ClientEseService,private examensService:ExamensService,private webSocketService:ClientEseService,public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.getExamens();
+    this.createForm()
   }
   
   public getExamens(): void {
@@ -58,6 +77,17 @@ public examens:any
       }
     );
   
+  }
+
+
+  createForm() {
+    this.angForm = this.fb.group({
+       date:['', Validators.required],
+       time:['', Validators.required],
+    }
+   );;
+  
+   
   }
 
   NotifyAdmin()
@@ -123,7 +153,7 @@ public examens:any
  
   }
 
-  public demande(id:number,addForm: NgForm):void{
+  /*public demande(id:number,addForm: NgForm):void{
    
     this.clientService.addDemande(id,addForm.value).subscribe(
       (response: inscription) => {
@@ -138,6 +168,43 @@ public examens:any
    
       }
     );
+  }*/
+
+
+  public demande(id:number):void{
+   
+   
+
+    this.clientService.addDemande(id,this.angForm.value).subscribe(
+      (response: inscription) => {
+        console.log(response);
+        this.ngOnInit()
+  
+
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        console.log(inscription)
+   
+      }
+    );
   }
+
+
+  public getHeureDispo(date:Date){
+    this.clientService.heureDispo(date).subscribe(
+      (response: []) => {
+        this.listHreure = response;
+        console.log(this.examens);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  
+  }
+
+
+
   
 }

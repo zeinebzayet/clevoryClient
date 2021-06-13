@@ -2,7 +2,7 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { inscription } from 'src/app/examens/examens.component';
+import { examens, inscription } from 'src/app/examens/examens.component';
 import { demande } from 'src/app/formations/formations.component';
 import { client_entreprise, Voucher } from '../entreprise-layout/employees/employees.component';
 import * as Stomp from 'stompjs';
@@ -36,7 +36,13 @@ export class ClientEseService {
 
   private baseUrlAdmin ="http://localhost:8090/admin/notify";
 
-  private baseUrlAdminEse ="http://localhost:8090/adminentreprises/notify";
+  private baseUrlAdminEse ="http://localhost:8090/adminentreprises/notify/"+localStorage.getItem("rcs");
+
+  private baseUrlAdminEsee ="http://localhost:8090/adminentreprises/notify";
+  
+  private baseHeureDispo ="http://localhost:8090/api/examens";
+
+  private baseClitExam ="http://localhost:8090/api/clients/"+localStorage.getItem("cin")+"/examens";
   constructor(private httpClient:HttpClient) { }
   
   connect() {
@@ -55,7 +61,7 @@ notifyAdmin():Observable<any>
 
 notifyAdminEse():Observable<any>
 {
-  return this.httpClient.get("http://localhost:8090/notifyAdminEse")
+  return this.httpClient.get("http://localhost:8090/notifyAdminEse/"+localStorage.getItem("rcs")); 
 }
 
 addNotifEse(notification:Notification):Observable<Notification>
@@ -67,6 +73,17 @@ addNotifEse(notification:Notification):Observable<Notification>
 {
   return this.httpClient.post<Notification>(`${this.baseUrlPersonne}/${this.baseUrlNotification}`,notification);
 }*/
+
+addNotifEntreprise(rcs:number,notification:Notification):Observable<Notification>
+{
+  return this.httpClient.post<Notification>(`${this.baseUrlAdminEsee}/${rcs}`,notification);
+}
+
+NotifyAdminEses(rcs:number):Observable<any>
+{
+  return this.httpClient.get("http://localhost:8090/notifyAdminEse/"+rcs); 
+}
+
 
 addNotifAd(notification:Notification):Observable<Notification[]>
 {
@@ -142,5 +159,11 @@ ExitDemande(id:number): Observable<number>{
   return this.httpClient.get<number>(`${this.baseUrlDemandeFx}/${id}`);
 }
 
+heureDispo(date :Date): Observable<[]>{
+  return this.httpClient.get<[]>(`${this.baseHeureDispo}/dates/${date}`);
+}
 
+getAllInsc(exam :number): Observable<inscription[]>{
+  return this.httpClient.get<inscription[]>(`${this.baseClitExam}/${exam}`);
+}
 }

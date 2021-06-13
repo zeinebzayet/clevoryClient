@@ -83,9 +83,9 @@ export class ClientEseComponent implements OnInit {
 
  
 
-  NotifyAdminEse()
+  NotifyAdminEse(rcs:number)
   {
-    this.webSocketService.notifyAdminEse().subscribe(res=>{
+    this.webSocketService.NotifyAdminEses(rcs).subscribe(res=>{
       console.log("Notification sent to Admin")
     })
   }
@@ -110,14 +110,14 @@ export class ClientEseComponent implements OnInit {
 
 
 
-public addNotification():void{
+public addNotification(rcs:number):void{
 
   this.message="Le client "+localStorage.getItem("username")+" "+localStorage.getItem("prenom")+" a demandé un compte de la part de votre entreprise ";
   this.NotificationForm.get('content')?.setValue(this.message);
-  this.webSocketService.addNotifEse(this.NotificationForm.value).subscribe(
+  this.webSocketService.addNotifEntreprise(rcs,this.NotificationForm.value).subscribe(
     (response: Notification) => {
       console.log(response);
-      this.NotifyAdminEse()
+      this.NotifyAdminEse(rcs);
 
   
     },
@@ -156,11 +156,9 @@ nbNotif(){
 
   adddemande()
   {
-  
       this.service.addDemandeentreprise(this.val).subscribe(
         (response: demandeentreprise) => {
-
-    
+          this.addNotification(this.val)
         },
         (error: HttpErrorResponse) => {
           alert(error.message);

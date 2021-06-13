@@ -52,9 +52,133 @@
 
 
 
+
+    <div class="modal fade" id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Inscription Examen</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+              <form #addForm="ngForm"  class="row" autocomplete="off">
+                  <div class="form-group">
+                     <label for="date">Date </label>
+                     <input type="date" ngModel name="date" class="form-control" id="date" required>
+                  </div>
+    
+                  <div class="form-group">
+                    <select class="form-control"  >
+                      <option value="01:00:00">1h</option>
+                      <option value="01:30:00">1h30</option>
+                      <option value="02:00:00 ">2h</option>
+                      <option value="02:30:00">2h30</option>
+                      <option value="03:00:00">3h</option>
+    
+                    </select>
+                 </div>
+                  
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">non</button>
+                    </div>
+            </form>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Alert</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span> 
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Vous êtes déjà demander une inscription pour cette formation !!!</p>
+    
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+             
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+ 
+    
+    
+    
+    <div class="modal fade" id="demandeModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content ">
+          <div class="modal-body">
+            <div class="card px-0 pt-4 ">
+              
+              <div class="row">
+                <div class="col-md-12 mx-0">
+                  <form id="msform" name="form" [formGroup]="angForm" novalidate (ngSubmit)="demande(demandeExamen?.id);addNotification(demandeExamen?.libelle)" >
+                    <fieldset>
+      
+                        <div class="form-group">
+                          <label for="date">Date </label>
+                          <input type="date"  formControlName="date" #date  name="date" class="form-control" id="date" required>
+                          <p *ngFor="let validation of account_validation_messages.date">
+                            <span style="color: red;" class="error-message" *ngIf="angForm.get('date').hasError(validation.type) && (angForm.get('date').dirty || angForm.get('date').touched)">{{validation.message}}</span></p>
+                         
+        
+                      </div>
+                      <input (click)="getHeureDispo(date.value)"  type="button" name="next" class="next action-button" value="Suivant" />
+                    </fieldset>
+                    <fieldset> 
+                      <div class="form-group" >
+                        <label>Select l'heure</label>
+                        <select  class="form-control"   formControlName="time"    > 
+                          <option  *ngFor="let e of listHreure"    name="time"  selected> {{e}}</option>
+  
+                        </select>
+                     </div>
+                     
+                      <input type="button" name="previous" class="previous action-button-previous" value="Précédant" />
+                      <input  type="submit" name="next" class="next action-button" value="Suivant" />
+                    </fieldset>
+      
+                    <fieldset>
+                      <div class="form-card">
+                        <h2 class="fs-title text-center">Success !</h2> <br><br>
+                        <div class="row justify-content-center">
+                          <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png  " class="fit-image"> </div>
+                        </div> <br><br>
+                        <div class="row justify-content-center">
+                          <div class="col-7 text-center">
+                            <h5>You Have Successfully Signed Up</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </form>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+    
+    
+    
+
+
   
    
-    <div class="modal fade" id="demandeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--<div class="modal fade" id="demandeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -77,9 +201,65 @@
            
           </div>
         </div>
-      </div>
+      </div>-->
 
-      <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+      
+<!--<div class="modal fade" id="demandeModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="card px-0 pt-4 ">
+          
+          <div class="row">
+            <div class="col-md-12 mx-0">
+              <form id="msform" name="form" [formGroup]="angForm" novalidate >
+                <fieldset>
+  
+                    <div class="form-group">
+                      <label for="date">Date </label>
+                      <input type="date"  formControlName="date" #date  name="date" class="form-control" id="date" required>
+                   
+    
+                  </div>
+                  <input (click)="getHeureDispo(demandeExamen?.id,date.value)"  type="button" name="next" class="next action-button" value="Suivant" />
+                </fieldset>
+                <fieldset> 
+                  <div class="form-group" >
+                    <label>Select l'heure</label>
+                    <select class="form-control" formControlName="time" >
+                      <option  *ngFor="let e of listHreure"> {{e}}</option>
+
+                    </select>
+                 </div>
+                 
+                  <input type="button" name="previous" class="previous action-button-previous" value="Précédant" />
+                  <input  type="submit" name="next" class="next action-button" value="Suivant" />
+                </fieldset>
+  
+                <fieldset>
+                  <div class="form-card">
+                    <h2 class="fs-title text-center">Success !</h2> <br><br>
+                    <div class="row justify-content-center">
+                      <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png  " class="fit-image"> </div>
+                    </div> <br><br>
+                    <div class="row justify-content-center">
+                      <div class="col-7 text-center">
+                        <h5>You Have Successfully Signed Up</h5>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+     <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -99,7 +279,7 @@
             
           </div>
         </div>
-      </div>
+      </div>-->
 
 
 
@@ -109,4 +289,3 @@
   </section>
                                   <!--****************footer**************-->
 <app-footer></app-footer>
-  

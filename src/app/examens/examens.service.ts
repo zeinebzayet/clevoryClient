@@ -11,6 +11,7 @@ export class ExamensService {
   private baseUrl = "http://localhost:8090/api/examen";
   private baseUrlLast = "http://localhost:8090/api/lastExams";
   host :string = "http://localhost:8090";
+  
 
  
   private baseUrlClient= "client/"+localStorage.getItem("cin");
@@ -27,6 +28,6 @@ export class ExamensService {
     return this.http.get<examens[]>(`${this.baseUrlLast}`);
   }
 
-
+ 
 }
            
